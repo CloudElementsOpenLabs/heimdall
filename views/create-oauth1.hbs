@@ -1,0 +1,58 @@
+ {{>_header}}
+
+<!-- Instance creation -->
+<div id="instance-creation" class="connector-panel">
+    <h3>Connect to {{config.name}}</h3>
+    <form id="configure-instance" class="instance-form" action="/v1/instances" method="post">
+        {{#each config.properties}} {{#ifCond display true}} {{#ifCond dataType 'text'}}
+        <div class="row">
+            <div class="col-25">
+                <label for="{{{key}}}">{{{displayName}}} *</label>
+            </div>
+            <div class="col-75">
+                <input id="{{{key}}}" class="input-box" name="{{{key}}}" value="{{{defaultValue}}}" required>
+            </div>
+            <div class="col-15">
+                <div class="tooltip-show">
+                    <img id="info" src="public/images/Info.svg">
+                    <span>{{{description}}}</span>
+                </div>
+            </div>
+        </div>
+        {{else}}
+        <fieldset class="form-group">
+            <div class="row">
+                <div class="col-25">
+                    <label for="{{{key}}}">{{{displayName}}} *</label>
+                </div>
+                <div class="col-75">
+                    <select id="{{{key}}}" name="{{{key}}}" class="input-box">
+                        {{#each picklistOptions}}
+                            {{#ifCond ../defaultValue  value}}
+                                <option value="{{{value}}}" selected>{{display}}</option>
+                            {{else}}
+                                <option value="{{{value}}}">{{display}}</option>
+                            {{/ifCond}}
+                        {{/each}}
+                    </select>
+                </div>
+                <div class="col-15">
+                    <div class="tooltip-show">
+                        <img id="info" src="public/images/Info.svg">
+                        <span>{{{description}}}</span>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        {{/ifCond}} {{/ifCond}} {{/each}}
+        <div class="row">
+            <button type="submit" class="btn connector-button">Connect</button>
+        </div>
+        <input id="userSecret" name="userSecret" type="hidden" value="{{{userSecret}}}">
+        <input id="applicationId" name="applicationId" type="hidden" value="{{{applicationId}}}">
+        <input id="elementKey" name="elementKey" type="hidden" value="{{{elementKey}}}">
+        <input id="uniqueName" name="uniqueName" type="hidden" value="{{{uniqueName}}}">
+    </form>
+</div>
+{{>_inlineScript}}
+{{>_footer}}

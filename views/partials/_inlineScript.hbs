@@ -1,0 +1,15 @@
+<script>
+    $(function () {
+        $('button[type="submit"]').prop('disabled', true)
+        $('#configure-instance input[required]').on('keyup change', function () {
+            let isDisabled = false
+            $('#configure-instance input[required]').each(function () {
+                if ($(this).val() == '') {
+                    isDisabled = true
+                    return false
+                }
+            })
+            $('button[type="submit"]').prop("disabled", isDisabled)
+        })
+    })
+</script>

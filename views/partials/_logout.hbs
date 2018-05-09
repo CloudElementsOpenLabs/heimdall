@@ -1,0 +1,55 @@
+<button type="button" id="logout-button" class="btn btn-default btn-sm pull-right" data-toggle="modal" data-target="#confirm-destroy">Logout</button>
+<input id="instance-token" type="hidden" value="{{{instance.token}}}">
+<!-- Modal -->
+<div id="confirm-destroy" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Confirm Instance Delete</h4>
+            </div>
+            <div class="modal-body">
+                <p>Confirm your intent to delete the Cloud Elements instance:
+                    <br>
+                    <strong>
+                        <span class="selected-instance-name">{{instance.name}}</span>
+                    </strong>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" id="destroy-instance" class="btn btn-danger" data-dismiss="modal">Confirm</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- End Modal -->
+<script>
+    $(document).ready(function () {
+        $('#destroy-instance').click(function () {
+            $.ajax({
+                "crossDomain": true,
+                "url": "instances",
+                "method": "DELETE",
+                "headers": {
+                    "Authorization": $("#token").val()
+                }
+            }).done(function (response) {
+                debugger;
+                toastr.info("You have successfully logged out");
+                window.location.href = '/v1/application?sourceName=' + $("#sourceName").val()
+                        + '&token=' + response.token
+                        + '&tableSelect=' + $("#tableSelect").val()
+                        + '&callback=' + $("#callback").val()
+                        + '&code=' + $("#code").val();
+
+            }).fail(function (response) {
+                toastr.clear();
+                toastr.error("Failed to delete instance");
+                console.log(response.responseJSON);
+            })
+        })
+    });
+</script>

@@ -1,0 +1,2 @@
+'use strict';
+module.exports = authData => `User ${authData.userSecret}${authData.orgSecret ? `, Organization ${authData.orgSecret}` : ''}${authData.elementToken ? `, Element ${authData.elementToken}` : ''}`

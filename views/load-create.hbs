@@ -1,0 +1,89 @@
+<html>
+
+<head>
+    <title>Loading...</title>
+    <meta http-equiv="Cache-Control" content="no-store" />
+
+    <link rel="shortcut icon" href="public/images/favicon.ico" />
+    <style>
+        #loader {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            margin: -70px 0 0 -65px;
+            border: 15px solid #f3f3f3;
+            border-top: 15px solid #3498db;
+            -webkit-animation: spin 1.5s linear infinite;
+            animation: spin 1.5s linear infinite;
+        }
+
+        /* Safari */
+        @-webkit-keyframes spin {
+            0% { -webkit-transform: rotate(0deg); }
+            100% { -webkit-transform: rotate(360deg); }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+
+    <script src="public/javascripts/jquery.min.js" type="text/javascript"></script>
+
+    <script>
+        window.onload = function () {
+            $('#post-create').submit(function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: '/v1/application',
+                    method: 'POST',
+                    data: $('#post-create').serialize(),
+                    error: function (err) {
+                        $("#error_box").fadeIn(500)
+                        let element = document.getElementById('error_box')
+                        element.innerHTML = `<img src="public/images/error.svg" style="padding-right:7px; padding-bottom: 1px"/><span>Sorry, we didn't recognize your connection details. Please check your entry and try again.</span>`
+                    },
+                    success: function(data) {
+                        // Send the instance to the opening window
+                        const targetWindow = window.opener;
+                        targetWindow.postMessage(data, '*'); 
+                        window.close();
+                    }             
+                });
+            });
+            // preserve all query parameters by POST
+            var postForm = $('#post-create');
+            var params = queryStringToObj(window.location.search);
+
+            Object.keys(params).forEach(function(paramKey) {
+                postForm.append('<input name=' + paramKey + ' type="hidden" value=' + params[paramKey] + '>');
+            });
+            postForm.submit();
+        }
+
+        // helper function that converts URL query string values into an object
+        function queryStringToObj(queryString) {
+            var queryObj = {};
+            var queries = queryString.substring(1);
+            if (queries) {
+                queries = queries.split('&');
+                queries.forEach(function (query) {
+                    var splitInd = query.indexOf('=');
+                    queryObj[query.substring(0, splitInd)] = query.substring(splitInd + 1);
+                });
+            }
+            return queryObj;
+        }
+    </script>
+</head>
+
+<body>
+    <div id="loader">
+        <form id="post-create" action="/v1/application" method="post"></form>
+    </div>
+</body>
+</html>

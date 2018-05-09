@@ -1,0 +1,1089 @@
+{
+   "amazons3": {
+      "authType": "basic",
+      "config": [
+         {
+            "dataType": "text",
+            "description": "Amazon S3 Access Key",
+            "display": true,
+            "displayName": "Access Key ID",
+            "key": "filemanagement.provider.access_key"
+         },
+         {
+            "dataType": "text",
+            "description": "Amazon S3 Secret Key",
+            "display": true,
+            "displayName": "Secret Key",
+            "key": "filemanagement.provider.secret_key"
+         },
+         {
+            "dataType": "picklist",
+            "description": "Region you are connecting to",
+            "display": true,
+            "displayName": "Region Name",
+            "key": "filemanagement.provider.region_name",
+            "options": [
+               {
+                  "display": "US East (N. Virginia)",
+                  "value": "us-east-1"
+               },
+               {
+                  "display": "US East (Ohio)",
+                  "value": "us-east-2"
+               },
+               {
+                  "display": "US West (N. California)",
+                  "value": "us-west-1"
+               },
+               {
+                  "display": "US West (Oregon)",
+                  "value": "us-west-2"
+               },
+               {
+                  "display": "Canada (Central)",
+                  "value": "ca-central-1"
+               },
+               {
+                  "display": "Asia Pacific (Mumbai)",
+                  "value": "ap-south-1"
+               },
+               {
+                  "display": "Asia Pacific (Tokyo)",
+                  "value": "ap-northeast-1"
+               },
+               {
+                  "display": "Asia Pacific (Seoul)",
+                  "value": "ap-northeast-2"
+               },
+               {
+                  "display": "Asia Pacific (Osaka-Local)",
+                  "value": "ap-northeast-3"
+               },
+               {
+                  "display": "Asia Pacific (Singapore)",
+                  "value": "ap-southeast-1"
+               },
+               {
+                  "display": "Asia Pacific (Sydney)",
+                  "value": "ap-southeast-2"
+               },
+               {
+                  "display": "China (Beijing)",
+                  "value": "cn-north-1"
+               },
+               {
+                  "display": "China (Ningxia)",
+                  "value": "cn-northwest-1"
+               },
+               {
+                  "display": "EU (Frankfurt)",
+                  "value": "eu-central-1"
+               },
+               {
+                  "display": "EU (Ireland)",
+                  "value": "eu-west-1"
+               },
+               {
+                  "display": "EU (London)",
+                  "value": "eu-west-2"
+               },
+               {
+                  "display": "EU (Paris)",
+                  "value": "eu-west-3"
+               },
+               {
+                  "display": "South America (Sao Paulo)",
+                  "value": "sa-east-1"
+               }
+            ]
+         },
+         {
+            "dataType": "text",
+            "description": "Name of the bucket you want to interact with",
+            "display": true,
+            "displayName": "Bucket Name",
+            "key": "filemanagement.provider.bucket_name"
+         }
+      ],
+      "name": "Amazon S3"
+   },
+   "autotaskcrm": {
+      "authType": "basic",
+      "config": [
+         {
+            "dataType": "text",
+            "description": "Autotask username to login as",
+            "display": true,
+            "displayName": "Username",
+            "key": "crm.autotask.username"
+         },
+         {
+            "dataType": "password",
+            "description": "Autotask users password",
+            "display": true,
+            "displayName": "Password",
+            "key": "crm.autotask.password"
+         },
+         {
+            "dataType": "text",
+            "description": "Format like: https://ww2.autotask.net",
+            "display": true,
+            "displayName": "Server URL",
+            "key": "crm.autotask.server.url"
+         }
+      ],
+      "name": "Autotask CRM"
+   },
+   "base": {
+      "authType": "oauth2",
+      "config": [
+         {
+            "dataType": "text",
+            "defaultValue": "{your value}",
+            "display": false,
+            "key": "oauth.api.key"
+         },
+         {
+            "dataType": "text",
+            "defaultValue": "{your value}",
+            "display": false,
+            "key": "oauth.api.secret"
+         },
+         {
+            "dataType": "text",
+            "defaultValue": "{baseUrl}/v1/application",
+            "display": false,
+            "key": "oauth.callback.url"
+         }
+      ],
+      "name": "Base CRM"
+   },
+   "bigcommerce": {
+      "authType": "basic",
+      "config": [
+         {
+            "dataType": "text",
+            "description": "Username for the API user",
+            "display": true,
+            "displayName": "Username",
+            "key": "username"
+         },
+         {
+            "dataType": "text",
+            "description": "The API token from BigCommerce",
+            "display": true,
+            "displayName": "API Token",
+            "key": "password"
+         },
+         {
+            "dataType": "text",
+            "defaultValue": "https://<mycompany>.mybigcommerce.com/api/v2",
+            "description": "Format like: https://mycompany.mybigcommerce.com/api/v2",
+            "display": true,
+            "displayName": "API Path",
+            "key": "store.url"
+         }
+      ],
+      "name": "BigCommerce"
+   },
+   "box": {
+      "authType": "oauth2",
+      "config": [
+         {
+            "dataType": "text",
+            "defaultValue": "{your value}",
+            "display": false,
+            "key": "oauth.api.key"
+         },
+         {
+            "dataType": "text",
+            "defaultValue": "{your value}",
+            "display": false,
+            "key": "oauth.api.secret"
+         },
+         {
+            "dataType": "text",
+            "defaultValue": "{baseUrl}/v1/application",
+            "display": false,
+            "key": "oauth.callback.url"
+         }
+      ],
+      "name": "Box"
+   },
+   "bullhorn": {
+      "authType": "oauth2",
+      "config": [
+         {
+            "dataType": "text",
+            "defaultValue": "{your value}",
+            "display": false,
+            "key": "oauth.api.key"
+         },
+         {
+            "dataType": "text",
+            "defaultValue": "{your value}",
+            "display": false,
+            "key": "oauth.api.secret"
+         },
+         {
+            "dataType": "text",
+            "defaultValue": "{baseUrl}/v1/application",
+            "display": false,
+            "key": "oauth.callback.url"
+         }
+      ],
+      "name": "Bullhorn"
+   },
+   "closeio": {
+      "authType": "basic",
+      "config": [
+         {
+            "dataType": "text",
+            "description": "Your Close.io API Key",
+            "display": true,
+            "displayName": "API Key",
+            "key": "username"
+         }
+      ],
+      "name": "Close.io"
+   },
+   "connectwisehd": {
+      "authType": "basic",
+      "config": [
+         {
+            "dataType": "text",
+            "description": "ConnectWise Server URL",
+            "display": true,
+            "displayName": "Server URL",
+            "key": "helpdesk.connectwise.server.url"
+         },
+         {
+            "dataType": "text",
+            "description": "ConnectWise Company",
+            "display": true,
+            "displayName": "Company",
+            "key": "helpdesk.connectwise.company"
+         },
+         {
+            "dataType": "text",
+            "description": "ConnectWise Username",
+            "display": true,
+            "displayName": "Username",
+            "key": "helpdesk.connectwise.username"
+         },
+         {
+            "dataType": "password",
+            "description": "ConnectWise Password",
+            "display": true,
+            "displayName": "Password",
+            "key": "helpdesk.connectwise.password"
+         },
+         {
+            "dataType": "text",
+            "description": "ConnectWise WSDL path",
+            "display": true,
+            "displayName": "WSDL path",
+            "key": "helpdesk.connectwise.wsdl.path"
+         }
+      ],
+      "name": "ConnectWise"
+   },
+   "constantcontact": {
+      "authType": "oauth2",
+      "config": [
+         {
+            "dataType": "text",
+            "defaultValue": "{your value}",
+            "display": false,
+            "key": "oauth.api.key"
+         },
+         {
+            "dataType": "text",
+            "defaultValue": "{your value}",
+            "display": false,
+            "key": "oauth.api.secret"
+         },
+         {
+            "dataType": "text",
+            "defaultValue": "{baseUrl}/v1/application",
+            "display": false,
+            "key": "oauth.callback.url"
+         }
+      ],
+      "name": "Constant Contact"
+   },
+   "desk": {
+      "authType": "oauth1",
+      "config": [
+         {
+            "dataType": "text",
+            "defaultValue": "{your value}",
+            "display": false,
+            "key": "oauth.api.key"
+         },
+         {
+            "dataType": "text",
+            "defaultValue": "{your value}",
+            "display": false,
+            "key": "oauth.api.secret"
+         },
+         {
+            "dataType": "text",
+            "defaultValue": "{baseUrl}/v1/application",
+            "display": false,
+            "key": "oauth.callback.url"
+         },
+         {
+            "dataType": "text",
+            "description": "For site address: https://mycompany.desk.com/. Subdomain is: mycompany",
+            "display": true,
+            "displayName": "Subdomain",
+            "key": "subdomain",
+            "oauthUrlParam": "siteAddress"
+         }
+      ],
+      "name": "Desk.com"
+   },
+   "dynamicscrmadfs": {
+      "authType": "oauth2",
+      "config": [
+         {
+            "dataType": "text",
+            "defaultValue": "{your value}",
+            "display": false,
+            "key": "oauth.api.key"
+         },
+         {
+            "dataType": "text",
+            "defaultValue": "{your value}",
+            "display": false,
+            "key": "oauth.api.secret"
+         },
+         {
+            "dataType": "text",
+            "defaultValue": "{baseUrl}/v1/application",
+            "display": false,
+            "key": "oauth.callback.url"
+         },
+         {
+            "dataType": "text",
+            "description": "Format like: https://mycompany.crm.dynamics.com/",
+            "display": true,
+            "displayName": "Site Address",
+            "key": "oauth.resource.url",
+            "oauthUrlParam": "siteAddress"
+         },
+         {
+            "dataType": "text",
+            "defaultValue": "oauth2",
+            "display": false,
+            "key": "authentication.type"
+         }
+      ],
+      "name": "Dynamics CRM"
+   },
+   "freshbooksv2": {
+      "authType": "oauth2",
+      "config": [
+         {
+            "dataType": "text",
+            "defaultValue": "{your value}",
+            "display": false,
+            "key": "oauth.api.key"
+         },
+         {
+            "dataType": "text",
+            "defaultValue": "{your value}",
+            "display": false,
+            "key": "oauth.api.secret"
+         },
+         {
+            "dataType": "text",
+            "defaultValue": "{baseUrl}/v1/application",
+            "display": false,
+            "key": "oauth.callback.url"
+         },
+         {
+            "dataType": "text",
+            "description": "Your Freshbooks business name",
+            "display": true,
+            "displayName": "Business Name",
+            "key": "business.name"
+         }
+      ],
+      "name": "Freshbooks Cloud Accounting"
+   },
+   "intacct": {
+      "authType": "basic",
+      "config": [
+         {
+            "dataType": "text",
+            "description": "Intacct Company ID",
+            "display": true,
+            "displayName": "Company ID",
+            "key": "intacct.user.company.id"
+         },
+         {
+            "dataType": "text",
+            "description": "The user ID of the user to login as",
+            "display": true,
+            "displayName": "Username",
+            "key": "intacct.user.id"
+         },
+         {
+            "dataType": "password",
+            "description": "Password for intacct user",
+            "display": true,
+            "displayName": "Password",
+            "key": "intacct.user.password"
+         },
+         {
+            "dataType": "text",
+            "description": "Production XML gateway sender ID",
+            "display": true,
+            "displayName": "Sender ID",
+            "key": "intacct.sender.id"
+         },
+         {
+            "dataType": "text",
+            "description": "Production XML gateway sender password",
+            "display": true,
+            "displayName": "Sender Password",
+            "key": "intacct.sender.password"
+         }
+      ],
+      "name": "Intacct"
+   },
+   "magentov20": {
+      "authType": "basic",
+      "config": [
+         {
+            "dataType": "text",
+            "defaultValue": "http://{site}/index.php/rest/V1",
+            "description": "Format like: https://magento2.mycompany.com/index.php/rest/V1",
+            "display": true,
+            "displayName": "REST API URL",
+            "key": "site"
+         },
+         {
+            "dataType": "text",
+            "description": "Username to login to Magento as",
+            "display": true,
+            "displayName": "Username",
+            "key": "username"
+         },
+         {
+            "dataType": "password",
+            "description": "Password for user",
+            "display": true,
+            "displayName": "Password",
+            "key": "password"
+         },
+         {
+            "dataType": "picklist",
+            "description": "Is this user an administrator?",
+            "display": true,
+            "displayName": "Administrator",
+            "key": "user",
+            "options": [
+               {
+                  "display": "True",
+                  "value": "true"
+               },
+               {
+                  "display": "False",
+                  "value": "false"
+               }
+            ]
+         }
+      ],
+      "name": "Magento v2.0"
+   },
+   "netsuiteerpv2": {
+      "authType": "basic",
+      "properties": [
+         {
+            "dataType": "text",
+            "description": "Netsuite account ID",
+            "display": true,
+            "displayName": "Account ID",
+            "key": "netsuite.accountId"
+         },
+         {
+            "dataType": "text",
+            "defaultValue": "custom",
+            "display": false,
+            "displayName": "auth type",
+            "key": "authentication.type"
+         },
+         {
+            "dataType": "text",
+            "description": "Consumer key from netsuite",
+            "display": true,
+            "displayName": "Consumer Key",
+            "key": "consumer_key"
+         },
+         {
+            "dataType": "text",
+            "description": "Consumer Secret from netsuite",
+            "display": true,
+            "displayName": "Consumer Secret",
+            "key": "consumer_secret"
+         },
+         {
+            "dataType": "text",
+            "description": "Access Token ID",
+            "display": true,
+            "displayName": "Access Token ID",
+            "key": "token_id"
+         },
+         {
+            "dataType": "text",
+            "description": "Access token secret",
+            "display": true,
+            "displayName": "Access Token Secret",
+            "key": "token_secret"
+         }
+      ],
+      "name": "Netsuite"
+   },
+   "onedrivev2": {
+      "authType": "oauth2",
+      "config": [
+         {
+            "dataType": "text",
+            "defaultValue": "{your value}",
+            "display": false,
+            "key": "oauth.api.key"
+         },
+         {
+            "dataType": "text",
+            "defaultValue": "{your value}",
+            "display": false,
+            "key": "oauth.api.secret"
+         },
+         {
+            "dataType": "text",
+            "defaultValue": "{baseUrl}/v1/application",
+            "display": false,
+            "key": "oauth.callback.url"
+         },
+         {
+            "dataType": "text",
+            "defaultValue": "files.readwrite offline_access",
+            "display": false,
+            "key": "oauth.scope",
+            "oauthUrlParam": "scope"
+         },
+         {
+            "dataType": "text",
+            "defaultValue": "true",
+            "display": false,
+            "key": "converged_app"
+         }
+      ],
+      "name": "OneDrive"
+   },
+   "oraclesalescloud": {
+      "authType": "basic",
+      "config": [
+         {
+            "dataType": "text",
+            "description": "Format like: mycompany-crm.oracledemos.com",
+            "display": true,
+            "displayName": "Site URL",
+            "key": "site.url"
+         },
+         {
+            "dataType": "text",
+            "description": "Username to login to oracle as",
+            "display": true,
+            "displayName": "Username",
+            "key": "username"
+         },
+         {
+            "dataType": "password",
+            "description": "Password for user",
+            "display": true,
+            "displayName": "Password",
+            "key": "password"
+         }
+      ],
+      "name": "Oracle Sales Cloud"
+   },
+   "pardot": {
+      "authType": "basic",
+      "config": [
+         {
+            "dataType": "text",
+            "description": "The username to login to pardot as",
+            "display": true,
+            "displayName": "Username",
+            "key": "apikey.user.name"
+         },
+         {
+            "dataType": "password",
+            "description": "Password for user",
+            "display": true,
+            "displayName": "Password",
+            "key": "apikey.user.password"
+         },
+         {
+            "dataType": "text",
+            "description": "API User Key found in settings",
+            "display": true,
+            "displayName": "API User Key",
+            "key": "apikey.user.key"
+         },
+         {
+            "dataType": "picklist",
+            "defaultValue": "4",
+            "description": "Default is 3. Select 4 if you have enable V4",
+            "display": true,
+            "displayName": "Pardot API Version",
+            "key": "provider.version",
+            "options": [
+               {
+                  "display": "3",
+                  "value": "3"
+               },
+               {
+                  "display": "4",
+                  "value": "4"
+               }
+            ]
+         }
+      ],
+      "name": "Pardot"
+   },
+   "pipedrive": {
+      "authType": "basic",
+      "config": [
+         {
+            "dataType": "text",
+            "description": "Username to login to Pipedrive as",
+            "display": true,
+            "displayName": "Username",
+            "key": "pipedrive.email"
+         },
+         {
+            "dataType": "password",
+            "description": "Password for user",
+            "display": true,
+            "displayName": "Password",
+            "key": "pipedrive.password"
+         },
+         {
+            "dataType": "text",
+            "defaultValue": "emailPassword",
+            "display": false,
+            "key": "authentication"
+         }
+      ],
+      "name": "PipeDrive"
+   },
+   "quickbooks": {
+      "authType": "oauth2",
+      "config": [
+         {
+            "dataType": "text",
+            "defaultValue": "oauth2",
+            "display": false,
+            "key": "authentication.type",
+            "oauthUrlParam": "authentication.type"
+         },
+         {
+            "dataType": "text",
+            "defaultValue": "{your value}",
+            "display": false,
+            "key": "oauth.api.key"
+         },
+         {
+            "dataType": "text",
+            "defaultValue": "{your value}",
+            "display": false,
+            "key": "oauth.api.secret"
+         },
+         {
+            "dataType": "text",
+            "defaultValue": "{baseUrl}/v1/application",
+            "display": false,
+            "key": "oauth.callback.url"
+         },
+         {
+            "dataType": "text",
+            "defaultValue": "com.intuit.quickbooks.accounting openid profile email phone address",
+            "display": false,
+            "key": "oauth.scope",
+            "oauthUrlParam": "scope"
+         },
+         {
+            "dataType": "text",
+            "defaultValue": "false",
+            "display": false,
+            "key": "use_sandbox"
+         }
+      ],
+      "name": "Quickbooks Online"
+   },
+   "sapc4ccrm": {
+      "authType": "basic",
+      "config": [
+         {
+            "dataType": "text",
+            "defaultValue": "<domain>.crm.ondemand.com",
+            "description": "Subdomain for your SAP C4C",
+            "display": true,
+            "displayName": "Subdomain",
+            "key": "subdomain"
+         },
+         {
+            "dataType": "text",
+            "description": "Username to connect with",
+            "display": true,
+            "displayName": "Username",
+            "key": "username"
+         },
+         {
+            "dataType": "password",
+            "description": "Password for user",
+            "display": true,
+            "displayName": "Password",
+            "key": "password"
+         }
+      ],
+      "name": "SAP Hybris Cloud for Customer CRM"
+   },
+   "servicecloud": {
+      "authType": "basic",
+      "config": [
+         {
+            "dataType": "text",
+            "description": "Username to connect to Oracle Service Cloud with",
+            "display": true,
+            "displayName": "Username",
+            "key": "helpdesk.servicecloud.username"
+         },
+         {
+            "dataType": "password",
+            "description": "Password for user",
+            "display": true,
+            "displayName": "Password",
+            "key": "helpdesk.servicecloud.password"
+         },
+         {
+            "dataType": "text",
+            "defaultValue": "https://<host_name>/cgi-bin/<interface>.cfg/services/soap?wsdl",
+            "description": "Format like: https://mycompany.something.com/cgi-bin/mycompany.cfg/services/soap?wsdl",
+            "display": true,
+            "displayName": "Endpoint URL",
+            "key": "helpdesk.servicecloud.endpointurl"
+         }
+      ],
+      "name": "Oracle Service Cloud"
+   },
+   "sfdc": {
+      "authType": "oauth2",
+      "config": [
+         {
+            "dataType": "text",
+            "defaultValue": "{your value}",
+            "display": false,
+            "key": "oauth.api.key"
+         },
+         {
+            "dataType": "text",
+            "defaultValue": "{your value}",
+            "display": false,
+            "key": "oauth.api.secret"
+         },
+         {
+            "dataType": "text",
+            "defaultValue": "{baseUrl}/v1/application",
+            "display": false,
+            "key": "oauth.callback.url"
+         },
+         {
+            "dataType": "text",
+            "defaultValue": "http://login.salesforce.com/",
+            "description": "Change only if you are accessing a sandbox or custom domain",
+            "display": true,
+            "displayName": "Endpoint Address",
+            "key": "base.url",
+            "oauthUrlParam": "siteAddress"
+         }
+      ],
+      "name": "Salesforce.com"
+   },
+   "sharepoint": {
+      "authType": "oauth2",
+      "config": [
+         {
+            "dataType": "text",
+            "description": "Create an oauth app on sharepoint",
+            "display": true,
+            "displayName": "OAuth Client ID",
+            "key": "oauth.api.key",
+            "oauthUrlParam": "apiKey"
+         },
+         {
+            "dataType": "text",
+            "description": "Retrieve from sharepoint oauth app",
+            "display": true,
+            "displayName": "OAuth Client Secret",
+            "key": "oauth.api.secret",
+            "oauthUrlParam": "apiSecret"
+         },
+         {
+            "dataType": "text",
+            "defaultValue": "{baseUrl}/v1/application",
+            "display": false,
+            "key": "oauth.callback.url"
+         },
+         {
+            "dataType": "text",
+            "description": "Format like: mycompany.sharepoint.com",
+            "display": true,
+            "displayName": "Sharepoint Site Address",
+            "key": "sharepoint.site.address",
+            "oauthUrlParam": "siteAddress"
+         }
+      ],
+      "name": "Sharepoint"
+   },
+   "smartrecruiters": {
+      "authType": "oauth2",
+      "config": [
+         {
+            "dataType": "text",
+            "defaultValue": "{your value}",
+            "display": false,
+            "key": "oauth.api.key"
+         },
+         {
+            "dataType": "text",
+            "defaultValue": "oauth2",
+            "display": false,
+            "key": "authentication.type"
+         },
+         {
+            "dataType": "text",
+            "defaultValue": "{your value}",
+            "display": false,
+            "key": "oauth.api.secret"
+         },
+         {
+            "dataType": "text",
+            "defaultValue": "{baseUrl}/v1/application",
+            "display": false,
+            "key": "oauth.callback.url"
+         }
+      ],
+      "cookieState": "true",
+      "name": "SmartRecruiters"
+   },
+   "sugarcrmv2": {
+      "authType": "basic",
+      "config": [
+         {
+            "dataType": "text",
+            "description": "Retrieved from Admin > OAuth Keys > Create OAuth Key",
+            "display": true,
+            "displayName": "Consumer Key",
+            "key": "oauth.api.key"
+         },
+         {
+            "dataType": "text",
+            "description": "Retrieved from Admin > OAuth Keys > Create OAuth Key",
+            "display": true,
+            "displayName": "Consumer Secret",
+            "key": "oauth.api.secret"
+         },
+         {
+            "dataType": "text",
+            "description": "Format: mycompany.sugarondemand.com",
+            "display": true,
+            "displayName": "Site URL",
+            "key": "site.url"
+         },
+         {
+            "dataType": "text",
+            "description": "Username to access Sugar CRM as",
+            "display": true,
+            "displayName": "Username",
+            "key": "username"
+         },
+         {
+            "dataType": "password",
+            "description": "Password for user",
+            "display": true,
+            "displayName": "Password",
+            "key": "password"
+         }
+      ],
+      "name": "Sugar CRM"
+   },
+   "taleobusiness": {
+      "authType": "basic",
+      "config": [
+         {
+            "dataType": "text",
+            "description": "Taleo Username. Format as username@company_code",
+            "display": true,
+            "displayName": "Username",
+            "key": "username"
+         },
+         {
+            "dataType": "password",
+            "description": "Password for user",
+            "display": true,
+            "displayName": "Password",
+            "key": "password"
+         },
+         {
+            "dataType": "text",
+            "description": "Your Taleo company code",
+            "display": true,
+            "displayName": "Company Code",
+            "key": "taleo.company.code"
+         }
+      ],
+      "name": "Taleo Business Edition"
+   },
+   "woocommercerest": {
+      "authType": "basic",
+      "config": [
+         {
+            "dataType": "text",
+            "description": "Format like: https://mystore.com/",
+            "display": true,
+            "displayName": "Store URL",
+            "key": "store.url"
+         },
+         {
+            "dataType": "text",
+            "description": "OAuth API Key. Found in WooCommerce > Settings",
+            "display": true,
+            "displayName": "API Key",
+            "key": "oauth.api.key"
+         },
+         {
+            "dataType": "text",
+            "description": "OAuth API Secret. Found in WooCommerce > Settings",
+            "display": true,
+            "displayName": "API Secret",
+            "key": "oauth.api.secret"
+         }
+      ],
+      "name": "WooCommerce"
+   },
+   "zendesk": {
+      "authType": "oauth2",
+      "config": [
+         {
+            "dataType": "text",
+            "defaultValue": "{your value}",
+            "display": false,
+            "key": "oauth.api.key"
+         },
+         {
+            "dataType": "text",
+            "defaultValue": "{your value}",
+            "display": false,
+            "key": "oauth.api.secret"
+         },
+         {
+            "dataType": "text",
+            "defaultValue": "{baseUrl}/v1/application",
+            "display": false,
+            "key": "oauth.callback.url"
+         },
+         {
+            "dataType": "text",
+            "description": "Taken from your Zendesk URL: subdomain.zendesk.com",
+            "display": true,
+            "displayName": "Subdomain",
+            "key": "zendesk.subdomain",
+            "oauthUrlParam": "siteAddress"
+         }
+      ],
+      "name": "Zendesk"
+   },
+   "zohocrm": {
+      "authType": "basic",
+      "config": [
+         {
+            "dataType": "text",
+            "defaultValue": "https://crm.zoho.com",
+            "description": "Only change if you have a custom sudomain",
+            "display": false,
+            "key": "base.url"
+         },
+         {
+            "dataType": "text",
+            "defaultValue": "https://accounts.zoho.com/apiauthtoken/nb/create",
+            "description": "Consumer key from netsuite",
+            "display": false,
+            "key": "auth.url"
+         },
+         {
+            "dataType": "text",
+            "description": "Username to login to zoho as",
+            "display": true,
+            "displayName": "Username",
+            "key": "crm.zohocrm.username"
+         },
+         {
+            "dataType": "password",
+            "description": "Password for that user",
+            "display": true,
+            "displayName": "Password",
+            "key": "crm.zohocrm.password"
+         }
+      ],
+      "name": "Zoho CRM"
+   },
+   "zuorav2": {
+      "authType": "basic",
+      "config": [
+         {
+            "dataType": "picklist",
+            "description": "Pick true to connect to Zuora's sandbox services. You will need your sandbox credentials to authenticate.",
+            "display": true,
+            "displayName": "Connect to sandbox",
+            "key": "zuorav2.sandbox",
+            "options": [
+               {
+                  "display": "True",
+                  "value": "true"
+               },
+               {
+                  "display": "False",
+                  "value": "false"
+               }
+            ]
+         },
+         {
+            "dataType": "text",
+            "defaultValue": "custom",
+            "display": false,
+            "key": "authentication.type"
+         },
+         {
+            "dataType": "text",
+            "description": "The Client ID",
+            "display": true,
+            "displayName": "Client ID",
+            "key": "clientId"
+         },
+         {
+            "dataType": "text",
+            "description": "The Client Secret",
+            "display": true,
+            "displayName": "Client Secret",
+            "key": "clientSecret"
+         }
+      ],
+      "name": "Zuora"
+   }
+}
