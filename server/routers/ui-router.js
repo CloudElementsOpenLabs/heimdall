@@ -20,7 +20,7 @@ ui.all(/^\/(?!public).*/, uiAuthentication)
 
 ui.all('/application', asyncErrorCatcher(async (req, res, next) => {
 
-    const config = await getElement(req.elementKey, req.authData.applicationId) 
+    const config = await getElement(req.elementKey, req.authData.applicationId)
     let isOAuthRedirect = !(req.query.state === undefined)
     let instance
     let elementKey = req.query.elementKey
@@ -67,16 +67,20 @@ ui.all('/application', asyncErrorCatcher(async (req, res, next) => {
     if (!isOAuthRedirect) {
 
         if (util.needsUserConfig(config.properties)) {
-            //return instance create page
-            res.render(`create-${config.authType}`, {
-                config: config, 
-                userSecret: req.authData.userSecret,
-                applicationId: req.authData.applicationId,
+            let data = {
+                config: config,
                 cssUrl: req.application.cssUrl ? req.application.cssUrl : 'public/stylesheets/style.css',
                 helpUrl: req.application.helpUrl,
                 logoUrl: req.application.logoUrl,
+                applicationId: req.authData.applicationId,
                 elementKey: req.elementKey,
-                uniqueName: req.uniqueName})
+                uniqueName: req.uniqueName  
+            }
+            // don't put userSecret on the page if using a heimdall token
+            let method = req.query.token ? { token: req.query.token } : { userSecret: req.authData.userSecret}
+            //return instance create page
+            res.render(`create-${config.authType}`, Object.assign(data, method))
+            
         } else {
             // redirect to source authorization page directly
             const { url, state } = await oauthUrl(req.elementKey, req.uniqueName, {}, req.authData, config)
@@ -87,7 +91,7 @@ ui.all('/application', asyncErrorCatcher(async (req, res, next) => {
 }))
 
 ui.post('/instances', asyncErrorCatcher(async (req, res, next) => {
-    const config = await getElement(req.elementKey, req.authData.applicationId) 
+    const config = await getElement(req.elementKey, req.authData.applicationId)
     if (config.authType === 'oauth2') {
         const { url, state } = await oauthUrl(req.cookies.elementKey, req.uniqueName, req.body, req.authData)
         res.cookie('state', state)

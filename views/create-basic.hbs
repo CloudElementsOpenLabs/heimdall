@@ -1,74 +1,78 @@
-
+ 
  {{>_header}}
-  
+
 <!-- Instance creation -->
 <div id="instance-creation" class="connector-panel">
     <h3>Connect to {{config.name}}</h3>
     <form id="configure-instance" method="post" class="instance-form">
-        {{#each config.properties}} {{#ifCond display true}}
-            {{#ifCond dataType 'text'}}
-                <div class="row">
-                    <div class="col-25">
-                        <label for="{{{key}}}">{{{displayName}}} *</label>
-                    </div>
-                    <div class="col-75">
-                        <input id="{{{key}}}" class="input-box" name="{{{key}}}" value="{{{defaultValue}}}" required>
-                    </div>
-                    <div class="col-15">
-                        <div class="tooltip-show"> 
-                            <img id="info" src="public/images/Info.svg">  
-                            <span>{{{description}}}</span>
-                        </div>
-                    </div>
+        {{#each config.properties}} {{#ifCond display true}} 
+        {{#ifCond dataType 'text'}}
+        <div class="row">
+            <div class="col-25">
+                <label for="{{{key}}}">{{{displayName}}} *</label>
+            </div>
+            <div class="col-75">
+                <input id="{{{key}}}" class="input-box" name="{{{key}}}" value="{{{defaultValue}}}" required>
+            </div>
+            <div class="col-15">
+                <div class="tooltip-show">
+                    <img id="info" src="public/images/Info.svg">
+                    <span>{{{description}}}</span>
                 </div>
-            {{/ifCond}} 
-            {{#ifCond dataType 'picklist'}}
-            <fieldset>
-                <div class="row">
-                    <div class="col-25">
-                        <label for="{{{key}}}">{{{displayName}}} *</label>
-                    </div>
-                    <div class="col-75">
-                        <select id="{{{key}}}" name="{{{key}}}">
-                        {{#each picklistOptions}}
-                            {{#ifCond ../defaultValue  value}}
+            </div>
+        </div>
+        {{/ifCond}} 
+        {{#ifCond dataType 'picklist'}}
+        <fieldset>
+            <div class="row">
+                <div class="col-25">
+                    <label for="{{{key}}}">{{{displayName}}} *</label>
+                </div>
+                <div class="col-75">
+                    <select id="{{{key}}}" name="{{{key}}}">
+                        {{#each picklistOptions}} 
+                            {{#ifCond ../defaultValue value}}
                                 <option value="{{{value}}}" selected>{{display}}</option>
                             {{else}}
                                 <option value="{{{value}}}">{{display}}</option>
-                            {{/ifCond}}
+                            {{/ifCond}} 
                         {{/each}}
-                        </select>
-                    </div>
-                     <div class="col-15">
-                        <div class="tooltip-show"> 
-                            <img id="info" src="public/images/Info.svg">  
-                            <span>{{{description}}}</span>
-                        </div>
+                    </select>
+                </div>
+                <div class="col-15">
+                    <div class="tooltip-show">
+                        <img id="info" src="public/images/Info.svg">
+                        <span>{{{description}}}</span>
                     </div>
                 </div>
-            </fieldset>
-            {{/ifCond}} 
-            {{#ifCond dataType 'password'}}
-                <div class="row">
-                    <div class="col-25">
-                        <label for="{{{key}}}">{{{displayName}}} *</label>
-                    </div>
-                    <div class="col-75">
-                        <input type="password" class="input-box" id="{{{key}}}" name="{{{key}}}" value="{{{defaultValue}}}" required>
-                    </div>
-                     <div class="col-15">
-                        <div class="tooltip-show"> 
-                            <img id="info" src="public/images/Info.svg">  
-                            <span>{{{description}}}</span>
-                        </div>
+            </div>
+        </fieldset>
+        {{/ifCond}} 
+        {{#ifCond dataType 'password'}}
+            <div class="row">
+                <div class="col-25">
+                    <label for="{{{key}}}">{{{displayName}}} *</label>
+                </div>
+                <div class="col-75">
+                    <input type="password" class="input-box" id="{{{key}}}" name="{{{key}}}" value="{{{defaultValue}}}" required>
+                </div>
+                <div class="col-15">
+                    <div class="tooltip-show">
+                        <img id="info" src="public/images/Info.svg">
+                        <span>{{{description}}}</span>
                     </div>
                 </div>
+            </div>
             {{/ifCond}} 
         {{/ifCond}} {{/each}}
         <div class="row">
             <button type="submit" class="btn connector-button">Connect</button>
         </div>
+        {{#if token}}
+         <input id="token" name="token" type="hidden" value="{{{token}}}">
+        {{else}}
         <input id="userSecret" name="userSecret" type="hidden" value="{{{userSecret}}}">
+        {{/if}}
         <input id="applicationId" name="applicationId" type="hidden" value="{{{applicationId}}}">
         <input id="elementKey" name="elementKey" type="hidden" value="{{{elementKey}}}">
         <input id="uniqueName" name="uniqueName" type="hidden" value="{{{uniqueName}}}">
@@ -90,11 +94,11 @@
             success: function(data) {
                 // Send the instance to the opening window
                 const targetWindow = window.opener;
-                targetWindow.postMessage(data, '*'); 
+                targetWindow.postMessage(data, '*');
                 window.close();
-            }             
+            }
         });
     });
-</script>
-{{>_inlineScript}}
+</script> 
+{{>_inlineScript}} 
 {{>_footer}}

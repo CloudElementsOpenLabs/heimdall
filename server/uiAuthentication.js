@@ -30,24 +30,36 @@ module.exports = async (req, res, next) => {
     let token, hasQueryState;
     req.authData = {}
     req.application = {}
-    if (req.query.elementKey && req.query.userSecret && req.query.applicationId) {
+    if (req.body.token) {        
+        req.authData = util.parseToken(req.body.token) 
+        req.elementKey = req.authData.elementKey
+        req.uniqueName = req.authData.uName
+        req.application = await getApplication(req.authData.applicationId) 
+        req.authData.orgSecret = req.application.orgSecret
+        req.authData.applicationId = req.authData.applicationId
+        next()
+        return
+    }
+    else if (req.query.elementKey && req.query.userSecret && req.query.applicationId) {
         req.elementKey = req.query.elementKey
-        req.authData.userSecret = req.query.userSecret ? req.query.userSecret : req.body.userSecret
+        req.uniqueName = req.query.uniqueName
         req.application = await getApplication(req.query.applicationId)
+        req.authData.userSecret = req.query.userSecret ? req.query.userSecret : req.body.userSecret        
         req.authData.orgSecret = req.application.orgSecret
         req.authData.applicationId = req.query.applicationId
         next()
         return
-    } else if (req.body.elementKey && req.body.userSecret && req.body.applicationId) {
+    } else if (req.body.elementKey && req.body.userSecret && req.body.applicationId) {        
         req.elementKey = req.body.elementKey
         req.uniqueName = req.body.uniqueName
+        req.application = await getApplication(req.body.applicationId)    
         req.authData.userSecret = req.body.userSecret
-        req.application = await getApplication(req.body.applicationId)
         req.authData.orgSecret = req.application.orgSecret
         req.authData.applicationId = req.body.applicationId
         next()
         return
-    } else {
+    }
+     else {
         if(req.body.state || req.body.code) {
             // restore all query parameter values from POST body so instance creation workflow works
             Object.keys(req.body).forEach(function(paramKey) {

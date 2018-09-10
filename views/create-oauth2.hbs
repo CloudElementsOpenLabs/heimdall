@@ -48,7 +48,11 @@
         <div class="row">
             <button type="submit" class="btn connector-button">Connect</button>
         </div>
+        {{#if token}}
+         <input id="token" name="token" type="hidden" value="{{{token}}}">
+        {{else}}
         <input id="userSecret" name="userSecret" type="hidden" value="{{{userSecret}}}">
+        {{/if}}
         <input id="applicationId" name="applicationId" type="hidden" value="{{{applicationId}}}">
         <input id="elementKey" name="elementKey" type="hidden" value="{{{elementKey}}}">
         <input id="uniqueName" name="uniqueName" type="hidden" value="{{{uniqueName}}}">
