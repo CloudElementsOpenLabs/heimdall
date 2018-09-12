@@ -25,6 +25,9 @@ sequelize.authenticate()
     .then(r => console.log('Connected to database'))
     .catch(r => console.error('Failed to connect to database', r))
 
+const closeConnection = () => sequelize.close()
+
+
 const schemaIdentifiers = {
     application : "applicationSchema",
     element : "elementSchema",
@@ -82,7 +85,7 @@ const elements = sequelize.define(
             }
     }
 }) 
-applications.hasMany(elements)
+applications.hasMany(elements, {onDelete: "cascade"})
 
 const propertySchema =  {
     elementId: {
@@ -161,5 +164,6 @@ module.exports = {
     applicationSchema,
     properties, 
     picklistOptions,
-    schemaIdentifiers
+    schemaIdentifiers,
+    closeConnection
 }
