@@ -20,7 +20,7 @@
   "homepage": "https://github.com/cloud-elements/heimdall#readme",
   "dependencies": {
     "babel-jest": "^23.4.2",
-    "body-parser": "^1.18.2",
+    "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.3",
     "express": "^4.16.3",
     "hbs": "^4.0.1",
@@ -29,11 +29,11 @@
     "pg": "^7.4.3",
     "pg-hstore": "^2.3.2",
     "ramda": "^0.25.0",
-    "request": "^2.85.0",
+    "request": "^2.88.0",
     "request-promise": "^4.2.2",
-    "sequelize": "^4.38.0",
+    "sequelize": "^4.38.1",
     "supertest": "^3.1.0",
-    "winston": "^2.4.2"
+    "winston": "^2.4.4"
   },
   "jest": {
     "coverageReporters": [
