@@ -4,6 +4,34 @@ Cloud Elements Provisioning App.
 Heimdall is authentication as a service. You configure your "application" on Heimdall. Then embed a small
 amount of javascript on your front end, which will enable authentication and instance creation to any element configured for your application. 
 
+## Configuring your Database
+The Heimdall application will need to acess a postgres database. We use Sequelize to set up all the necesary tables, but you must complete the next steps in order to set up your postgres enviroment.
+
+### 0. Install Postgresql
+You can follow the oficial documentation to install postgresql on this link: https://www.postgresql.org/download/
+
+### 1. Create a Role and Database on Postgresql
+Once completed the postgres installation you must create a role and a database based on the enviroment.json file.
+Execute the following commands on the postgresql terminal.
+CREATE ROLE heimdalltest WITH LOGIN PASSWORD 'heimdalltestdb';
+ALTER ROLE heimdalltest CREATEDB;
+CREATE DATABASE heimdalltest;
+
+## Enviroment Variables
+In order to run or test your Heimdall application you must set a group of enviroment variables that heimdall will access. Here are the required variables:
+
+### Database Enviroment Variables
+The host, port, user, database and password necesary to connect to your own postgres instance.
+#### PGHOST=<host> PGPORT=<port> PGDATABASE=<db> PGUSER=<user> PGPASSWORD=<password>
+
+### Cloud Elements Creadentials (Only Required for running tests)
+In order to execute a group of test, we need you to set a set of Cloud Elements credentials as enviroment variables. This is only necesary if you want to run "npm test" and execute our tests. 
+#### TEST_USER_SECRET=<user secret> TEST_ORG_SECRET=<org secret>
+
+### Other Required Enviroment Variables
+We will need you to provide the url where your heimdall is going to be runing and also the Heimdall enviroment (staging or production).
+#### BASE_URL=<url> CE_BASE_URL=<staging or production> 
+
 ## Configuring your application
 
 ### 0. Environments
