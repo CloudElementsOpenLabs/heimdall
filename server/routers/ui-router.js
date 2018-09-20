@@ -23,11 +23,10 @@ ui.all('/application', asyncErrorCatcher(async (req, res, next) => {
     const config = await getElement(req.elementKey, req.authData.applicationId)
     let isOAuthRedirect = !(req.query.state === undefined)
     let instance
-    let elementKey = req.query.elementKey
 
     // oAuth redirect logic
     if (isOAuthRedirect) {
-        instance = await getInstance(elementKey, req.authData)
+        instance = await getInstance(req.elementKey, req.authData)
         await deleteExistingInstances(req.authData, instance)
         delete req.authData.elementToken
         if (config.authType === 'oauth2') {
@@ -41,11 +40,11 @@ ui.all('/application', asyncErrorCatcher(async (req, res, next) => {
                     //successfully created oauth instance
                 } catch (error) {
                     // oAuth authentication failure -- delete any existing instances to prevent phishing attacks using stolen 'state'
-                    await handleFailedOauth(elementKey, req)
+                    await handleFailedOauth(req)
                 }
             } else {
                 // oAuth authentication failure -- delete any existing instances to prevent phishing attacks using stolen 'state'
-                await handleFailedOauth(elementKey, req)
+                await handleFailedOauth(req)
             }
         } else if (config.authType === 'oauth1') {
             if (req.query.oauth_token && req.query.oauth_verifier) {
@@ -55,11 +54,11 @@ ui.all('/application', asyncErrorCatcher(async (req, res, next) => {
                     await sendNotification(req.application.notificationEmail, instance)
                     return
                 } catch (error) {
-                    await handleFailedOauth(elementKey, req)
+                    await handleFailedOauth(req)
                 }
             } else {
                 // oAuth authentication failure -- delete any existing instances to prevent phishing attacks using stolen 'state'
-                await handleFailedOauth(elementKey, req)
+                await handleFailedOauth(req)
             }
         }
     }
@@ -93,7 +92,8 @@ ui.all('/application', asyncErrorCatcher(async (req, res, next) => {
 ui.post('/instances', asyncErrorCatcher(async (req, res, next) => {
     const config = await getElement(req.elementKey, req.authData.applicationId)
     if (config.authType === 'oauth2') {
-        const { url, state } = await oauthUrl(req.cookies.elementKey, req.uniqueName, req.body, req.authData)
+        //oauth2 had visible fields requiring user input
+        const { url, state } = await oauthUrl(req.elementKey, req.uniqueName, req.body, req.authData, config)
         res.cookie('state', state)
         res.redirect(url)
     } else if (config.authType === 'oauth1') {
@@ -120,9 +120,9 @@ const deleteExistingInstances = async (authData, instances) => {
     }
 }
 
-const handleFailedOauth = async (elementKey, req) => {
+const handleFailedOauth = async (req) => {
     console.log('invalid oAuth code -- reauthenticate')
-    const instance = await getInstance(elementKey, req.authData)
+    const instance = await getInstance(req.elementKey, req.authData)
     await deleteExistingInstances(req.authData.userSecret, instance);
     delete req.authData.elementToken
 }

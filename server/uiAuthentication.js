@@ -1,68 +1,55 @@
 'use strict'
 
 const util = require('../src/utils')
-const { applications } = require('../db/model')
+const { applications, elements } = require('../db/model')
+const {pipe} = require('ramda')
 
 const getApplication = async applicationId => {
-    let application = await applications.findOne({ where: { id: applicationId }})
+    let application = await applications.findOne({ where: { id: applicationId } })
     if (application && application.orgSecret) {
         return application
     } else {
         throw new Error(`No application for for ID ${applicationId}`)
     }
 }
+// if elementKey is numeric, go get the key
+const getKeyById = async id => {
+    if (Number.isInteger(+id)) {
+        let element = await elements.findById(+id)
+        return element.key
+    }
+    return id
+}
 
 module.exports = async (req, res, next) => {
     // if this is the basic auth callback
     if (req.body.instance) {
-        res.render('send-result', JSON.stringify({id: req.body.instance.id, token: req.body.instance.token}))
+        res.render('send-result', JSON.stringify({ id: req.body.instance.id, token: req.body.instance.token }))
     }
-
-    if (req.query.token) {
-        req.authData = util.parseToken(req.query.token)
-        req.elementKey = req.authData.elementKey
-        req.uniqueName = req.authData.uName
-        req.application = await getApplication(req.authData.applicationId)  
-        next()
-        return
-    }
+   
+    req.elementKey =  await pipe(util.findInRequest('elementKey'), getKeyById)(req)  
+    req.applicationId = util.findInRequest('applicationId', req)
+    let userSecret = util.findInRequest('userSecret', req)
 
     let token, hasQueryState;
-    req.authData = {}
-    req.application = {}
-    if (req.body.token) {        
-        req.authData = util.parseToken(req.body.token) 
-        req.elementKey = req.authData.elementKey
-        req.uniqueName = req.authData.uName
-        req.application = await getApplication(req.authData.applicationId) 
-        req.authData.orgSecret = req.application.orgSecret
-        req.authData.applicationId = req.authData.applicationId
+    if (req.elementKey && req.applicationId && userSecret) {
+        req.uniqueName = util.findInRequest('uName', req) || util.findInRequest('uniqueName', req)
+        req.application = await getApplication(req.applicationId)
+        req.authData = {
+            userSecret : userSecret,
+            exp : util.findInRequest('exp', req),
+            iat : util.findInRequest('iat', req),
+            //already set, but need in authData too...
+            applicationId : req.applicationId,
+            orgSecret : req.application.orgSecret
+        }
+
         next()
         return
-    }
-    else if (req.query.elementKey && req.query.userSecret && req.query.applicationId) {
-        req.elementKey = req.query.elementKey
-        req.uniqueName = req.query.uniqueName
-        req.application = await getApplication(req.query.applicationId)
-        req.authData.userSecret = req.query.userSecret ? req.query.userSecret : req.body.userSecret        
-        req.authData.orgSecret = req.application.orgSecret
-        req.authData.applicationId = req.query.applicationId
-        next()
-        return
-    } else if (req.body.elementKey && req.body.userSecret && req.body.applicationId) {        
-        req.elementKey = req.body.elementKey
-        req.uniqueName = req.body.uniqueName
-        req.application = await getApplication(req.body.applicationId)    
-        req.authData.userSecret = req.body.userSecret
-        req.authData.orgSecret = req.application.orgSecret
-        req.authData.applicationId = req.body.applicationId
-        next()
-        return
-    }
-     else {
-        if(req.body.state || req.body.code) {
+    } else {
+        if (req.body.state || req.body.code) {
             // restore all query parameter values from POST body so instance creation workflow works
-            Object.keys(req.body).forEach(function(paramKey) {
+            Object.keys(req.body).forEach(function (paramKey) {
                 req.query[paramKey] = decodeURIComponent(req.body[paramKey])
             });
         }
@@ -77,8 +64,8 @@ module.exports = async (req, res, next) => {
         }
     }
     if (!token) {
-        res.status(401).send({message: "Unauthorized, no userSecret or state found"})
-    } else if (req.query.state && !req.body.state && !req.body.code) { 
+        res.status(401).send({ message: "Unauthorized, no userSecret or state found" })
+    } else if (req.query.state && !req.body.state && !req.body.code) {
         // redirected from oauth -- need to render loading screen
         res.render(`load-create`)
 
@@ -89,6 +76,7 @@ module.exports = async (req, res, next) => {
         }
 
         try {
+            //process token from cookie
             req.authData = util.parseToken(token)
             req.elementKey = req.authData.elementKey
             req.uniqueName = req.authData.uName

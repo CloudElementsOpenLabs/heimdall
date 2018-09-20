@@ -26,10 +26,22 @@ const needsUserConfig = pipe(find(prop('display')), isNil, not)
 
 const fmtExp = m => (isNaN(m) ? m : (m * 1000).toString())
 
+const findInRequest = curry((k, r) => {
+    //token in query from sdk, body when posting instances
+    let token = r.query.token || r.body.token 
+    if (token) {
+        let authData = parseToken(token)
+        if (authData[k])
+            return authData[k]
+    }
+    return r.params[k] || r.body[k] || r.query[k] || r.cookies[k]
+})
+
 module.exports = {
     createToken,
     parseToken,
     needsUserConfig,
     buildConfiguration,
-    getConfigValue
+    getConfigValue,
+    findInRequest
 }
