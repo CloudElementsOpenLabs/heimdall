@@ -1,12 +1,11 @@
 'use strict'
 
-const POST_APPLICATION = (authOrg) => ({
-    orgSecret: authOrg,
+const POST_APPLICATION = {
     notificationEmail: 'test.notification@email.com',
     cssUrl: null,
     helpUrl: 'http://test/url',
     logoUrl: null
-})
+}
 
 const PUT_APPLICATION = {
     orgSecret: 'testOrgSecret',

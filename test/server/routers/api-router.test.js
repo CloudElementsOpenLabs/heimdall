@@ -1,37 +1,18 @@
 'use strict'
 
 const request = require('supertest')
-const apiRouter = require('../../../server/routers/api-router')
-const express = require('express')
-const bodyParser = require('body-parser')
-const model = require('../../../db/model')
+const { server, authOrg, authorization, destroyApplication , closeConnection } = require('./api-test')
+
 const mocks = require('./api-router-mock-data')
 
-const server = express()
-server.use(bodyParser.json())
-server.use(bodyParser.urlencoded())
-server.use(apiRouter)
-server.use(require('../../../server/errorCatcher'))
 jest.setTimeout(30000)
 
-let authorization;
-let authUser;
-let authOrg;
-
 beforeAll(() => {
-  authUser = process.env.TEST_USER_SECRET
-  authOrg = process.env.TEST_ORG_SECRET
-  console.log(authOrg)
-  authorization = `User ${authUser}, Organization ${authOrg}`
-  model.applications.destroy({
-      where: {
-          orgSecret: authOrg
-      }
-    })
+  destroyApplication()
 })
 
 afterAll(() => {
-  model.closeConnection()
+  closeConnection()
 })
 
 describe('Applications Integration Tests', () => {
@@ -39,7 +20,7 @@ describe('Applications Integration Tests', () => {
   test('POST Applications - Create a new Application', async () => {
     const response = await request(server)
     .post('/applications')
-    .send(mocks.POST_APPLICATION(authOrg))
+    .send(mocks.POST_APPLICATION)
     .set('Authorization', authorization)
     .set('Content-Type', 'application/json')
     
@@ -50,7 +31,7 @@ describe('Applications Integration Tests', () => {
   test('POST Applications - Validate not being able to post another application', async () => {
     const response = await request(server)
     .post('/applications')
-    .send(mocks.POST_APPLICATION(authOrg))
+    .send(mocks.POST_APPLICATION)
     .set('Authorization', authorization)
     .set('Content-Type', 'application/json')
 
