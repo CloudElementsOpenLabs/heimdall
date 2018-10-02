@@ -2,6 +2,72 @@ body {
     user-select: none;
 }
 
+.hidden-span {
+    display: none;
+}
+
+div.input-tooltip span {
+    display: none; 
+    position: relative; 
+    width: 250px;
+    height: auto;
+    min-height: 40px;
+    height:auto !important;        /* for IE as it does not support min-height */
+    height:40px;   
+    background-color: #FFFFFF;
+    color: #444649;
+    text-align: center;
+    font-size: 12px;
+    margin-top: -35px;
+    margin-left: 72%;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+div.input-tooltip:hover span {
+    position: relative;
+    display: block;
+    z-index: 100;
+	background: #FFFFFF;
+    border: 1px solid #c0c5ce;
+    text-align: left;
+}
+
+
+div.input-tooltip span:before{
+    right: 100%;
+	top: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+    border-color: rgba(194, 225, 245, 0);
+	border-right-color: #c0c5ce;
+	border-width: 10px;
+	margin-top: -10px;
+}
+
+div.input-tooltip span:after {
+    right: 100%;
+	top: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+    border-color: rgba(136, 183, 213, 0);
+	border-right-color: #FFFFFF;
+	border-width: 8px;
+	margin-top: -8px;
+}
+
+div.tooltip-show {
+    visibility: hidden;
+}
+
 .error-alert {
     width: 70%;
     height: 34px;
@@ -42,7 +108,7 @@ label {
 }
 
 .col-25 {
-    width: 10%;
+    width: 75%;
     margin-top: 6px;
     margin-left: 40px;
 }
@@ -67,20 +133,16 @@ select {
 }
 
 .col-15 {
-    padding-right: 10%;
-    width: 69%;
-    padding-left: 41px;
-    font-size: 12px;
-    color: #999999;
-}
-
-img {
-    display: none;
+    float: left;
+    padding-right: 31px;
+    margin-top: -5px;
+    width: 20px;
+    height: 20px;
 }
 
 .col-75 {
     float: left;
-    width: 65%;
+    width: 70%;
     display: block;
     margin-top: -8px;
     padding-bottom: 0px;
@@ -89,7 +151,7 @@ img {
 }
 
 .input-box {
-    width: 80%;
+    width: 70%;
     padding: 10px;
     border: 1px solid #c0c5ce;
     border-radius: 4px;
@@ -98,6 +160,10 @@ img {
     display: block;
     color: #444649;
     resize: vertical;
+}
+
+.row{
+    min-height: 78px;
 }
 
 .row:after {

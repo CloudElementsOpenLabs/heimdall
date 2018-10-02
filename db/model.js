@@ -106,6 +106,7 @@ const propertySchema =  {
     description: { type: Sequelize.STRING },
     displayName: { type: Sequelize.STRING, field: 'display_name' },
     display: { type: Sequelize.BOOLEAN, defaultValue: false },
+    displayOrder: { type: Sequelize.INTEGER, defaultValue: 0, field: 'display_order' }, 
     key: { type: Sequelize.STRING, allowNull: false },
     defaultValue: { type: Sequelize.TEXT, field: 'default_value' },
     oauthUrlParam: { type: Sequelize.STRING, field: 'oauth_url_param' }

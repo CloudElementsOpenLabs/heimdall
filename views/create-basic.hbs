@@ -3,7 +3,7 @@
 
 <!-- Instance creation -->
 <div id="instance-creation" class="connector-panel">
-    <h3>Connect to {{config.name}}</h3>
+    <h3><span class="hidden-span">Connect to </span>{{config.name}}</h3>
     <form id="configure-instance" method="post" class="instance-form">
         {{#each config.properties}} {{#ifCond display true}} 
         {{#ifCond dataType 'text'}}
@@ -12,7 +12,11 @@
                 <label for="{{{key}}}">{{{displayName}}} *</label>
             </div>
             <div class="col-75">
-                <input id="{{{key}}}" class="input-box" name="{{{key}}}" value="{{{defaultValue}}}" required>
+                <div class="input-tooltip">
+                    <input id="{{{key}}}" class="input-box" name="{{{key}}}"  value="{{{defaultValue}}}" required>
+                    <span>{{{description}}}</span>
+                </div>
+                
             </div>
             <div class="col-15">
                 <div class="tooltip-show">
@@ -54,7 +58,10 @@
                     <label for="{{{key}}}">{{{displayName}}} *</label>
                 </div>
                 <div class="col-75">
-                    <input type="password" class="input-box" id="{{{key}}}" name="{{{key}}}" value="{{{defaultValue}}}" required>
+                    <div class="input-tooltip">
+                        <input type="password" class="input-box" id="{{{key}}}" name="{{{key}}}" title="{{{description}}}" value="{{{defaultValue}}}" required>
+                        <span>{{{description}}}</span>
+                    </div>
                 </div>
                 <div class="col-15">
                     <div class="tooltip-show">
@@ -66,7 +73,7 @@
             {{/ifCond}} 
         {{/ifCond}} {{/each}}
         <div class="row">
-            <button type="submit" class="btn connector-button">Connect</button>
+            <button type="submit" class="btn connector-button" data-loading-text="<i class='fa fa-spinner fa-spin'></i> Connecting">Connect</button>
         </div>
         {{#if token}}
          <input id="token" name="token" type="hidden" value="{{{token}}}">
@@ -80,6 +87,10 @@
 </div>
 
 <script>
+    $('.connector-button').on('click', function() {
+        $(this).button('loading')
+    });
+
     $('#configure-instance').submit(function (e) {
         e.preventDefault();
         $.ajax({
@@ -90,9 +101,11 @@
                 $("#error_box").fadeIn(500)
                 let element = document.getElementById('error_box')
                 element.innerHTML = `<img src="public/images/error.svg" style="padding-right:7px; padding-bottom: 1px"/><span>Sorry, we didn't recognize your connection details. Please check your entry and try again.</span>`
+                $('.connector-button').button('reset')
             },
             success: function(data) {
                 // Send the instance to the opening window
+                $('.connector-button').button('reset')
                 const targetWindow = window.opener;
                 targetWindow.postMessage(data, '*');
                 window.close();

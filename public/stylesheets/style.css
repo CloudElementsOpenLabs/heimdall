@@ -2,6 +2,10 @@ body {
     user-select: none;
 }
 
+.hidden-span {
+    display: inline;
+}
+
 .error-alert {
     width: 70%;
     height: 34px;
@@ -137,6 +141,10 @@ h3 {
     margin-right: auto;
     margin-left: auto;
     min-height: 10em;
+}
+
+div.input-tooltip span{
+    visibility: hidden;
 }
 
 div.tooltip-show span {
