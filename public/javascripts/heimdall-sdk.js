@@ -4,7 +4,7 @@ var CE = (function() {
                 if (info.token) {
                     window.open(`https://heimdall.cloud-elements.com/v1/application?token=${info.token}`)
                 } else if (info.elementKey && info.userSecret && info.applicationId) {
-                    window.open(`https://heimdall.cloud-elements.com/v1/application?elementKey=${info.elementKey}&userSecret=${info.userSecret}&applicationId=${info.applicationId}&uniqueName=${info.uniqueName}`)
+                    window.open(`https://heimdall.cloud-elements.com/v1/application?elementKey=${info.elementKey}&userSecret=${info.userSecret}&applicationId=${info.applicationId}&uniqueName=${info.uniqueName}&instanceId=${info.instanceId}`)
                 } else {
                     throw new Error("Must provide either a token or element, userSecret and applicationId")
                 }

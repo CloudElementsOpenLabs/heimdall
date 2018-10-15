@@ -1,29 +1,36 @@
 'use strict'
 
-const {post} = require('./api');
+const { post, put } = require('./api');
 const util = require('./utils')
 
-module.exports = async (sourceName, uniqueName, state, query, secret, config) => {
+module.exports = async (req, secret, config) => {
     const instance = {   
-        name: `${sourceName}-${Date.now()}`,
+        name: `${req.elementKey}-${Date.now()}`,
         tags: [
-            sourceName // tag instances w/ element key to filter out non-relevant instances when retrieving all instances for a data source
+            req.elementKey // tag instances w/ element key to filter out non-relevant instances when retrieving all instances for a data source
         ],
         element:{
-            key: sourceName
+            key: req.elementKey
         },
         providerData: {
-            oauth_verifier: query.oauth_verifier,
-            oauth_token: query.oauth_token,
+            oauth_verifier: req.query.oauth_verifier,
+            oauth_token: req.query.oauth_token,
             secret: secret
         },
-        configuration: util.buildConfiguration(config.properties, state.configuration),
+        configuration: util.buildConfiguration(config.properties, req.authData.configuration),
     }
 
-    if (uniqueName) { instance.name = uniqueName }
+    if (req.uniqueName) { instance.name = req.uniqueName }
 
-    return await post('instances', instance, {
-        userSecret: state.userSecret, 
-        orgSecret: state.orgSecret
-    })
+    if (req.instanceId) {
+        return await put(`instances/${req.instanceId}`, instance, {
+            userSecret: req.authData.userSecret, 
+            orgSecret: req.authData.orgSecret
+        })
+    } else {
+        return await post('instances', instance, {
+            userSecret: req.authData.userSecret, 
+            orgSecret: req.authData.orgSecret
+        })
+    }
 }

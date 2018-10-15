@@ -1,25 +1,27 @@
 'use strict'
 
-const {post} = require('./api');
-const {curry, pipe, find, propEq, prop} = require('ramda')
+const { post, put } = require('./api');
 const util = require('./utils')
 
-module.exports = async (sourceName, uniqueName, props, authData, config) => {
+module.exports = async (req, props, config) => {
     const instance = {   
-        name: `${sourceName}-${Date.now()}`,
+        name: `${req.elementKey}-${Date.now()}`,
         tags: [
-            sourceName // tag instances w/ element key to filter out non-relevant instances when retrieving all instances for a data source
+            req.elementKey // tag instances w/ element key to filter out non-relevant instances when retrieving all instances for a data source
         ],
         element:{
-            key: sourceName 
+            key: req.elementKey 
         },
         configuration: util.buildConfiguration(config.properties, props)    
     }
 
-    if (uniqueName) {
-        instance.name = uniqueName
+    if (req.uniqueName) {
+        instance.name = req.uniqueName
     }
-
-    let result = await post('instances', instance, authData)
-    return result
+    
+    if (req.instanceId) {
+        return await put(`instances/${req.instanceId}`, instance, req.authData)
+    } else {
+        return await post('instances', instance, req.authData)
+    }
 }

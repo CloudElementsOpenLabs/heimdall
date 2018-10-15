@@ -5,6 +5,7 @@ const api = express.Router()
 const util = require('../../src/utils')
 const asyncErrorCatcher = require('../asyncErrorCatcher')
 const apiAuthentication = require('../apiAuthentication')
+const getElement = require('../../src/getElement')
 const model = require('../../db/model')
 const query = require('../../db/query')
 const R = require('ramda')
@@ -62,11 +63,18 @@ api.get('/url', asyncErrorCatcher(async (req, res) => {
         res.status(400).send({message: "Must provide elementKey"})
         return
     }
+    try {
+        await getElement(req.elementKey, req.authData.applicationId)
+    } catch (err) {
+        res.status(404).send({message: `No configuration found for elementKey ${req.query.elementKey}`})
+        return
+    }
     let token = util.createToken({
         userSecret: req.authData.userSecret,
         applicationId: req.authData.applicationId,
         elementKey: req.query.elementKey, 
-        uName: req.query.uniqueName
+        uName: req.query.uniqueName,
+        instanceId: req.query.instanceId
     })
     res.send({url: `${process.env.BASE_URL}/v1/application?token=${token}`, token: token})
 }))

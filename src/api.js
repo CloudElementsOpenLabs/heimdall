@@ -30,6 +30,19 @@ const post = curry(async (path, body, authData) => {
     return await rp(options)
 })
 
+const put = curry(async (path, body, authData) => {
+    let options = {
+        json: true,
+        headers: {
+            Authorization: authData instanceof Object ? authHeader(authData) : authData,
+        },
+        body: body,
+        url: process.env.CE_BASE_URL + path,
+        method: "PUT"
+    };
+    return await rp(options)
+})
+
 const remove = curry(async (path, authData) => {
     let options = {
         json: true,
@@ -45,5 +58,6 @@ const remove = curry(async (path, authData) => {
 module.exports = {
     get,
     post,
+    put,
     remove
 }

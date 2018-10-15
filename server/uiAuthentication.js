@@ -29,12 +29,14 @@ module.exports = async (req, res, next) => {
    
     req.elementKey =  await pipe(util.findInRequest('elementKey'), getKeyById)(req)  
     req.applicationId = util.findInRequest('applicationId', req)
+    req.instanceId = util.findInRequest('instanceId', req)
     let userSecret = util.findInRequest('userSecret', req)
 
     let token, hasQueryState;
     if (req.elementKey && req.applicationId && userSecret) {
         req.uniqueName = util.findInRequest('uName', req) || util.findInRequest('uniqueName', req)
         req.application = await getApplication(req.applicationId)
+        req.instanceId = util.findInRequest('instanceId', req)
         req.authData = {
             userSecret : userSecret,
             exp : util.findInRequest('exp', req),
@@ -80,6 +82,7 @@ module.exports = async (req, res, next) => {
             req.authData = util.parseToken(token)
             req.elementKey = req.authData.elementKey
             req.uniqueName = req.authData.uName
+            req.instanceId = req.authData.instanceId
             req.application = await getApplication(req.authData.applicationId)
             req.authData.orgSecret = req.application.orgSecret
             delete req.authData.elementKey

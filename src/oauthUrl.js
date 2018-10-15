@@ -6,18 +6,19 @@ const util = require('./utils')
 
 const findAdditionalParams = curry((elementConfig, key) => pipe(find(propEq('oauthUrlParam', key)), prop('key'))(elementConfig))
 
-module.exports = async (elementKey, uniqueName, configuration, authData, config) => {
+module.exports = async (req, configuration, config) => {
     const getElementConfig = util.getConfigValue(config.properties)
     const findOauthParams = findAdditionalParams(config.properties)
     const state = util.createToken({
-        userSecret: authData.userSecret,
-        applicationId: authData.applicationId,
-        elementKey: elementKey, 
+        userSecret: req.authData.userSecret,
+        applicationId: req.authData.applicationId,
+        elementKey: req.elementKey, 
         configuration: configuration,
-        uName: uniqueName
+        uName: req.uniqueName,
+        instanceId: req.instanceId
     })
 
-    let url = (await get(`elements/${elementKey}/oauth/url`,
+    let url = (await get(`elements/${req.elementKey}/oauth/url`,
         {
             apiKey: getElementConfig('oauth.api.key') ? getElementConfig('oauth.api.key') : configuration[findOauthParams('apiKey')],
             apiSecret: getElementConfig('oauth.api.secret') ? getElementConfig('oauth.api.secret') : configuration[findOauthParams('apiSecret')],
@@ -25,6 +26,6 @@ module.exports = async (elementKey, uniqueName, configuration, authData, config)
             siteAddress: configuration[findOauthParams('siteAddress')],
             scope: getElementConfig('oauth.scope'),
             'authentication.type': getElementConfig('authentication.type'),
-        }, authData)).oauthUrl
+        }, req.authData)).oauthUrl
     return { url, state }
 }
