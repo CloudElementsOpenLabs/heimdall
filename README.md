@@ -10,7 +10,7 @@ amount of javascript on your front end, which will enable authentication and ins
 3. [Usage](#usage)
 4. [Local Installation](#localInstallation)
 
-### 0. Environments
+### Environments
 
 Heimdall currently has two environments, staging and production. These are tied to Cloud Elements staging and production environments respectively  
 Staging: https://heimdall.stgc0.uswest2.c-e.works   
@@ -74,8 +74,7 @@ curl --request POST \
 }'
 ```
 
-This call will automatically tie this element to your application based on your authorization header. More on configuring elements later.
-
+This call will automatically tie this element to your application based on your authorization header. 
 ```bash 
 {
     // The Cloud Elements element key. Can be found by calling GET /elements
@@ -83,9 +82,6 @@ This call will automatically tie this element to your application based on your 
     
     // The name you want to display when creating an instance
     "name": "Desk.com",
-    
-    // On oauth 1 or 2 Elements, optionally keep state on a cookie. Useful when an endpoint does not support a "state" parameter
-    "cookieAuth": false,      
 
     // Either: oauth1, oauth2, or basic
     "authType": "oauth1",     
@@ -267,7 +263,7 @@ curl --request GET \
 
 RESPONSE
 {
-	"url": "https://heimdall.cloud-elements.com/v1/application?token=81d02a15e5635dc089dee41c6efee48126548c67f521701f43bc1f45c",
+"url": "https://heimdall.cloud-elements.com/v1/application?token=81d02a15e5635dc089dee41c6efee48126548c67f521701f43bc1f45c",
     "token":"81d02a15e5635dc089dee41c6efee48126548c67f521701f43bc1f45c"
 }
 ```
@@ -318,13 +314,11 @@ ALTER ROLE heimdall CREATEDB;
 CREATE DATABASE heimdall;
 ```
 
-Install: `npm install`
-
 ### 3. Enviroment Variables
 In order to run or test your Heimdall application you must set a group of enviroment variables that heimdall will access. Here are the required variables:
 ```bash
 PORT=4000,
-CE_BASE_URL=https://staging.cloud-elements.com/elements/api-v2/, //the base url for Cloud Elements
+CE_BASE_URL=https://staging.cloud-elements.com/elements/api-v2/, // base url for Cloud Elements
 BASE_URL=localhost:4000, // base url for heimdall, used to generate the url returned by GET /url
 SECRET_KEY=aj58fud430pslkrs87k5eu5ikjdeeujy, // secret for encrypting/decrypting tokens
 EXPIRES_IN=3600, // time for tokens to live in seconds 
@@ -338,7 +332,7 @@ SENDGRID_ORG=clx0ITgFjt02Q=, // Cloud Elements org secret that contains a sendgr
 SENDGRID_TOKEN=uvYpdJm1GVN3gYkQ= // Cloud Elements element token for a sendgrid instance. you can leave this blank if you are not going to be sending emails. 
 ```
 
-### 4. Run it
-
+### 4. Install and Run 
+`npm install`
 `npm start`
 
