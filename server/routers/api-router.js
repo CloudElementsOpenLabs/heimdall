@@ -64,7 +64,7 @@ api.get('/url', asyncErrorCatcher(async (req, res) => {
         return
     }
     try {
-        await getElement(req.elementKey, req.authData.applicationId)
+        await getElement(req.query.elementKey, req.authData.applicationId)
     } catch (err) {
         res.status(404).send({message: `No configuration found for elementKey ${req.query.elementKey}`})
         return
