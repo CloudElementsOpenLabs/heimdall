@@ -29,7 +29,7 @@ ui.all('/application', asyncErrorCatcher(async (req, res, next) => {
                     req.authData.realmId = req.query.realmId
                     instance = await createInstanceOauth(req, req.query.code, config)
                     res.send(instance)
-                    await sendNotification(req.application.notificationEmail, instance)
+                    req.application.notificationEmail ? sendNotification(req.application.notificationEmail, instance) : null
                     return
                     //successfully created oauth instance
                 } catch (error) {
@@ -43,7 +43,7 @@ ui.all('/application', asyncErrorCatcher(async (req, res, next) => {
                 try {
                     instance = await createInstanceOauth1(req, req.cookies.secret, config)
                     res.send(instance)
-                    await sendNotification(req.application.notificationEmail, instance)
+                    req.application.notificationEmail ? sendNotification(req.application.notificationEmail, instance) : null
                     return
                 } catch (error) {
                     //handle failed oauth
@@ -96,7 +96,7 @@ ui.post('/instances', asyncErrorCatcher(async (req, res, next) => {
     } else {
         let instance = await createInstanceBasic(req, req.body, config)
         res.send(instance)
-        await sendNotification(req.application.notificationEmail, instance)
+        req.application.notificationEmail ? sendNotification(req.application.notificationEmail, instance) : null
     }
 }))
 
