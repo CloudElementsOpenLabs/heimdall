@@ -2,7 +2,7 @@
 
 <!-- Instance creation -->
 <div id="instance-creation" class="connector-panel">
-    <h3>Connect to {{config.name}}</h3>
+    <h3><span class="hidden-span">Connect to </span>{{config.name}}</h3>
     <form id="configure-instance" class="instance-form" action="/v1/instances" method="post">
         {{#each config.properties}} {{#ifCond display true}} {{#ifCond dataType 'text'}}
         <div class="row">
@@ -10,7 +10,8 @@
                 <label for="{{{key}}}">{{{displayName}}} *</label>
             </div>
             <div class="col-75">
-                <input id="{{{key}}}" class="input-box" name="{{{key}}}" value="{{{defaultValue}}}" required>
+                <input id="{{{key}}}" class="input-box" name="{{{key}}}"  value="{{{defaultValue}}}" data-container="body" data-toggle="popover" 
+                    data-trigger="hover" data-placement="right" data-content="{{{description}}}" required>
             </div>
             <div class="col-15">
                 <div class="tooltip-show">
@@ -46,7 +47,7 @@
         </fieldset>
         {{/ifCond}} {{/ifCond}} {{/each}}
         <div class="row">
-            <button type="submit" class="btn connector-button">Connect</button>
+            <button type="submit" class="btn connector-button" data-loading-text="<i class='fa fa-spinner fa-spin'></i> Connecting">Connect</button>
         </div>
         {{#if token}}
          <input id="token" name="token" type="hidden" value="{{{token}}}">
@@ -59,5 +60,12 @@
         <input id="instanceId" name="instanceId" type="hidden" value="{{{instanceId}}}">
     </form>
 </div>
+<script>
+    $('.connector-button').on('click', function() {
+        $(this).button('loading')
+    });
+
+    $('[data-toggle="popover"]').popover();
+</script>
 {{>_inlineScript}}
 {{>_footer}}

@@ -12,11 +12,8 @@
                 <label for="{{{key}}}">{{{displayName}}} *</label>
             </div>
             <div class="col-75">
-                <div class="input-tooltip">
-                    <input id="{{{key}}}" class="input-box" name="{{{key}}}"  value="{{{defaultValue}}}" required>
-                    <span>{{{description}}}</span>
-                </div>
-                
+                <input id="{{{key}}}" class="input-box" name="{{{key}}}"  value="{{{defaultValue}}}" data-container="body" data-toggle="popover" 
+                    data-trigger="hover" data-placement="right" data-content="{{{description}}}" required>
             </div>
             <div class="col-15">
                 <div class="tooltip-show">
@@ -33,7 +30,7 @@
                     <label for="{{{key}}}">{{{displayName}}} *</label>
                 </div>
                 <div class="col-75">
-                    <select id="{{{key}}}" name="{{{key}}}">
+                    <select id="{{{key}}}" name="{{{key}}}" title="{{{description}}}">
                         {{#each picklistOptions}} 
                             {{#ifCond ../defaultValue value}}
                                 <option value="{{{value}}}" selected>{{display}}</option>
@@ -58,10 +55,8 @@
                     <label for="{{{key}}}">{{{displayName}}} *</label>
                 </div>
                 <div class="col-75">
-                    <div class="input-tooltip">
-                        <input type="password" class="input-box" id="{{{key}}}" name="{{{key}}}" title="{{{description}}}" value="{{{defaultValue}}}" required>
-                        <span>{{{description}}}</span>
-                    </div>
+                    <input type="password" class="input-box" id="{{{key}}}" name="{{{key}}}" value="{{{defaultValue}}}" data-container="body" data-toggle="popover" 
+                        data-trigger="hover" data-placement="right" data-content="{{{description}}}" required>
                 </div>
                 <div class="col-15">
                     <div class="tooltip-show">
@@ -91,6 +86,8 @@
     $('.connector-button').on('click', function() {
         $(this).button('loading')
     });
+
+    $('[data-toggle="popover"]').popover();
 
     $('#configure-instance').submit(function (e) {
         e.preventDefault();
