@@ -12,8 +12,8 @@ module.exports = async (email, instance) => {
         to: email,
         subject: `Connection Authorized for ${instance.name}`,
         from: 'notifications@cloud-elements.com',
-        message: `A user has authorizaed a connection to ${instance.element.name}. \n
-        the following element instance has been created: ${instance.name}`
+        message: `A user has authorized a connection to ${instance.element.name}. \n
+        The following element instance has been created: ${instance.name}`
     }
     try {
         let response = await post('messages', message, authData)
