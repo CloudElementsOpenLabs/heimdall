@@ -85,6 +85,7 @@ module.exports = async (req, res, next) => {
             req.instanceId = req.authData.instanceId
             req.application = await getApplication(req.authData.applicationId)
             req.authData.orgSecret = req.application.orgSecret
+            if (req.instanceId === "undefined") { delete req.instanceId } 
             delete req.authData.elementKey
             delete req.authData.uName
             req.token = token
