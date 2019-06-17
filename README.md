@@ -216,7 +216,7 @@ BigCommerce
             "displayName": "API Path",
             "display": true,
             "key": "store.url",
-            "defaultValue": "https://<mycompany>.mybigcommerce.com/api/v2",
+            "defaultValue": "https://<mycompany>.mybigcommerce.com/api/v2"
         }
     ]
 }
