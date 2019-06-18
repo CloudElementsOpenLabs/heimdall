@@ -303,7 +303,7 @@ RESPONSE
 The Heimdall application will need to acess a postgres database. We use Sequelize to set up all the necesary tables, but you must complete the next steps in order to set up your postgres enviroment.
 
 ### 1. Install Postgresql
-You can follow the oficial documentation to install postgresql on this link: https://www.postgresql.org/download/
+You can follow the official documentation to install postgresql on this link: https://www.postgresql.org/download/
 
 ### 2. Create a Role and Database on Postgresql
 Once completed the postgres installation you must create a role and a database based on the enviroment.json file.
