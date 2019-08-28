@@ -33,10 +33,12 @@ ui.all('/application', asyncErrorCatcher(async (req, res, next) => {
                     return
                     //successfully created oauth instance
                 } catch (error) {
-                    //handle failed oauth
+                    //handle failed oauth in errorCatcher
+                    throw error
                 }
             } else {
-                //handle failed oauth
+                //handle failed oauth in errorCatcher
+                throw error
             }
         } else if (config.authType === 'oauth1') {
             if (req.query.oauth_token && req.query.oauth_verifier) {
@@ -46,10 +48,13 @@ ui.all('/application', asyncErrorCatcher(async (req, res, next) => {
                     req.application.notificationEmail ? sendNotification(req.application.notificationEmail, instance) : null
                     return
                 } catch (error) {
-                    //handle failed oauth
+                //handle failed oauth in errorCatcher
+                throw error
+
                 }
             } else {
-                //handle failed oauth
+                //handle failed oauth in errorCatcher
+                throw error
             }
         }
     }
@@ -65,13 +70,13 @@ ui.all('/application', asyncErrorCatcher(async (req, res, next) => {
                 applicationId: req.authData.applicationId,
                 elementKey: req.elementKey,
                 uniqueName: req.uniqueName,
-                instanceId: req.instanceId 
+                instanceId: req.instanceId
             }
             // don't put userSecret on the page if using a heimdall token
-            let method = req.query.token ? { token: req.query.token } : { userSecret: req.authData.userSecret}
+            let method = req.query.token ? { token: req.query.token } : { userSecret: req.authData.userSecret }
             //return instance create page
             res.render(`create-${config.authType}`, Object.assign(data, method))
-            
+
         } else {
             // redirect to source authorization page directly
             const { url, state } = await oauthUrl(req, {}, config)

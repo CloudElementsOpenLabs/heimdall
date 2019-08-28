@@ -36,6 +36,7 @@
 
     <script>
         window.onload = function () {
+            const targetWindow = window.opener;
             $('#post-create').submit(function (e) {
                 e.preventDefault();
                 $.ajax({
@@ -43,13 +44,12 @@
                     method: 'POST',
                     data: $('#post-create').serialize(),
                     error: function (err) {
-                        $("#error_box").fadeIn(500)
-                        let element = document.getElementById('error_box')
-                        element.innerHTML = `<img src="public/images/error.svg" style="padding-right:7px; padding-bottom: 1px"/><span>Sorry, we didn't recognize your connection details. Please check your entry and try again.</span>`
+                        // Send error message to the opening window                 
+                        targetWindow.postMessage(err.responseText, '*'); 
+                        window.close();
                     },
                     success: function(data) {
                         // Send the instance to the opening window
-                        const targetWindow = window.opener;
                         targetWindow.postMessage(data, '*'); 
                         window.close();
                     }             

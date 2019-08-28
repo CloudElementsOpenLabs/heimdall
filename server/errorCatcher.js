@@ -14,8 +14,8 @@ module.exports = (err, req, res, next) => {
         res.status(400)
     }
     else if (err.error && err.error.message) {
-        // CE  message 
-        reason = err.error.message
+        // CE error object includes: requestId, message, providermessage
+        reason = err.error
     }
     else if (err.message) {
         reason = err.message
