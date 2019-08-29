@@ -45,7 +45,7 @@
                     data: $('#post-create').serialize(),
                     error: function (err) {
                         // Send error message to the opening window                 
-                        targetWindow.postMessage(err.responseText, '*'); 
+                        targetWindow.postMessage(err.responseJSON, '*'); 
                         window.close();
                     },
                     success: function(data) {
