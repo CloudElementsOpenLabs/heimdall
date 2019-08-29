@@ -17,9 +17,6 @@ module.exports = (err, req, res, next) => {
         reason = "Record with provided ID not found"
         res.status(404)
     }
-    else if (err.name === 'TokenExpiredError') {
-        reason = "Token expired"
-    }
     else if (err.error && err.error.message) {
         // CE error object includes: requestId, message, providermessage
         reason = err.error
