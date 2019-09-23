@@ -13,7 +13,7 @@ amount of javascript on your front end, which will enable authentication and ins
 ### Environments
 
 Heimdall currently has two environments, staging and production. These are tied to Cloud Elements staging and production environments respectively  
-Staging: https://heimdall.stgc0.uswest2.c-e.works   
+Staging: https://heimdall.stg.usw2.aws.cloudelements.apps   
 Production: https://heimdall.cloud-elements.com  
   
 
@@ -65,7 +65,7 @@ curl --request POST \
         },
         {
         "dataType": "text",
-        "defaultValue": "https://heimdall.stgc0.uswest2.c-e.works/v1/application",
+        "defaultValue": "https://heimdall.stg.usw2.aws.cloudelements.app/v1/application",
         "display": false,
         "key": "oauth.callback.url"
         }
@@ -137,7 +137,7 @@ Hubspot
         },
         {
             "dataType": "text",
-            "defaultValue": "https://heimdall.stgc0.uswest2.c-e.works/v1/application",
+            "defaultValue": "https://heimdall.stg.usw2.aws.cloudelements.app/v1/application",
             "display": false,
             "key": "oauth.callback.url"
         },
@@ -175,7 +175,7 @@ Desk.com
             "dataType": "text",
             "display": false,
             "key": "oauth.callback.url",
-            "defaultValue": "https://heimdall.stgc0.uswest2.c-e.works/v1/application"
+            "defaultValue": "https://heimdall.stg.usw2.aws.cloudelements.app/v1/application"
         },
         {
             "dataType": "text",
