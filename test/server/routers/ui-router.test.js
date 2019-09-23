@@ -10,7 +10,7 @@ const { POST_APPLICATION } = require('./api-router-mock-data')
 
 jest.setTimeout(100 * 1000)
 const instanceRegex = /"id": ([0-9]*), (.*?), "token": "(.*?)"/
-const stagingUrl = 'https://heimdall.stg.usw2.aws.cloudelements.app/v1/api'
+const stagingUrl = 'https://heimdall-staging.cloud-elements.com/v1/api'
 const stagingV2 = 'https://staging.cloud-elements.com/elements/api-v2'
 const chromeHeadless = false
 

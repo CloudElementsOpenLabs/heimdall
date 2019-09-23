@@ -95,7 +95,7 @@ const BOX = {
             displayName: null,
             display: false,
             key: "oauth.callback.url",
-            defaultValue: "https://heimdall.stg.usw2.aws.cloudelements.app/v1/applications",
+            defaultValue: "https://heimdall-staging.cloud-elements.com/v1/applications",
             oauthUrlParam: null,
             created_date: "2018-07-11T20:09:27.554Z",
             updated_date: "2018-07-11T20:09:27.554Z"
@@ -146,7 +146,7 @@ const DESK = 	{
             displayName: null,
             display: false,
             key: "oauth.callback.url",
-            defaultValue: "https://heimdall.stg.usw2.aws.cloudelements.app/v1/application",
+            defaultValue: "https://heimdall-staging.cloud-elements.com/v1/application",
             oauthUrlParam: null,
             created_date: "2018-07-12T19:40:55.585Z",
             updated_date: "2018-07-12T19:40:55.585Z"

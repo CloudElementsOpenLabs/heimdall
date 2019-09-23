@@ -1,8 +1,8 @@
 # Heimdall
 Cloud Elements Provisioning App. 
 
-Heimdall is authentication as a service. You configure your "application" on Heimdall. Then embed a small
-amount of javascript on your front end, which will enable authentication and instance creation to any element configured for your application. 
+Heimdall is authentication as a service. After configuring your "application" on Heimdall, embed a small
+amount of javascript on your front end to enable authentication and instance creation to any element configured for your application. 
 
 # Table of Contents
 1. [Configuring Your Application](#configureApp)
@@ -13,7 +13,7 @@ amount of javascript on your front end, which will enable authentication and ins
 ### Environments
 
 Heimdall currently has two environments, staging and production. These are tied to Cloud Elements staging and production environments respectively  
-Staging: https://heimdall.stg.usw2.aws.cloudelements.apps   
+Staging: https://heimdall-staging.cloud-elements.com   
 Production: https://heimdall.cloud-elements.com  
   
 
@@ -65,7 +65,7 @@ curl --request POST \
         },
         {
         "dataType": "text",
-        "defaultValue": "https://heimdall.stg.usw2.aws.cloudelements.app/v1/application",
+        "defaultValue": "https://heimdall-staging.cloud-elements.com/v1/application",
         "display": false,
         "key": "oauth.callback.url"
         }
@@ -137,7 +137,7 @@ Hubspot
         },
         {
             "dataType": "text",
-            "defaultValue": "https://heimdall.stg.usw2.aws.cloudelements.app/v1/application",
+            "defaultValue": "https://heimdall-staging.cloud-elements.com/v1/application",
             "display": false,
             "key": "oauth.callback.url"
         },
@@ -175,7 +175,7 @@ Desk.com
             "dataType": "text",
             "display": false,
             "key": "oauth.callback.url",
-            "defaultValue": "https://heimdall.stg.usw2.aws.cloudelements.app/v1/application"
+            "defaultValue": "https://heimdall-staging.cloud-elements.com/v1/application"
         },
         {
             "dataType": "text",

@@ -1,6 +1,6 @@
 {
   "name": "heimdall",
-  "version": "1.1.2",
+  "version": "1.2.1",
   "description": "Provisioning app",
   "main": "server.js",
   "scripts": {
