@@ -34,4 +34,4 @@ app.use('/v1', ui)
 
 app.use(require('./errorCatcher'))
 
-app.listen(process.env.PORT, () => console.log(`Example app listening on port ${process.env.PORT}!`))
+app.listen(process.env.PORT, () => console.log(`Listening on port ${process.env.PORT}`))

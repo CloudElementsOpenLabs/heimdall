@@ -11,7 +11,7 @@ module.exports = async (req, res, next) => {
     const authHeader = req.get("Authorization")
     if (!authHeader) {
         res.status(401)
-        next(new Error(`Invalid authorization header. Pass Authorization: User {userSecret}, Organization {orgSecret}`))
+        throw new Error(`Invalid authorization header. Pass Authorization: User {userSecret}, Organization {orgSecret}`)
     } else {
         req.authData = {}
         try {
@@ -23,7 +23,7 @@ module.exports = async (req, res, next) => {
             next()
         } catch (err) {
             res.status(401)
-            next(new Error(`Invalid authorization header. Pass Authorization: User {userSecret}, Organization {orgSecret}`))
+            throw new Error(`Invalid authorization header. Pass Authorization: User {userSecret}, Organization {orgSecret}`)
         }
     }
 }

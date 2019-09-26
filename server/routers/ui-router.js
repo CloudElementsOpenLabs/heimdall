@@ -13,7 +13,7 @@ const createInstanceOauth1 = require('../../src/createInstanceOauth1')
 const getElement = require('../../src/getElement')
 const sendNotification = require('../../src/sendNotification')
 
-ui.all(/^\/(?!public).*/, uiAuthentication)
+ui.all(/^\/(?!public).*/, asyncErrorCatcher(uiAuthentication))
 
 ui.all('/application', asyncErrorCatcher(async (req, res, next) => {
 
@@ -48,8 +48,8 @@ ui.all('/application', asyncErrorCatcher(async (req, res, next) => {
                     req.application.notificationEmail ? sendNotification(req.application.notificationEmail, instance) : null
                     return
                 } catch (error) {
-                //handle failed oauth in errorCatcher
-                throw error
+                    //handle failed oauth in errorCatcher
+                    throw error
 
                 }
             } else {
