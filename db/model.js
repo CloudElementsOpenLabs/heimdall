@@ -1,10 +1,11 @@
 'use strict'
-
-const Sequelize = require('sequelize');
+const winston = require('winston')
+const Sequelize = require('sequelize')
 const sequelize = new Sequelize(process.env.PGDATABASE, process.env.PGUSER, process.env.PGPASSWORD, {
   host: process.env.PGHOST,
   dialect: 'postgres',
   operatorsAliases: false,
+  logging: winston.warning,
   pool: {
     max: 5,
     min: 0,
@@ -22,8 +23,8 @@ const sequelize = new Sequelize(process.env.PGDATABASE, process.env.PGUSER, proc
 });
 
 sequelize.authenticate()
-    .then(r => console.log('Connected to database'))
-    .catch(r => console.error('Failed to connect to database', r))
+    .then(r => console.log(`Connected to database: ${sequelize.config.database}`))
+    .catch(r => console.error(`Failed to connect to database: ${sequelize.config.database}`, r))
 
 const closeConnection = () => sequelize.close()
 
