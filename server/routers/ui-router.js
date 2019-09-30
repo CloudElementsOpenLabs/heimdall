@@ -25,36 +25,25 @@ ui.all('/application', asyncErrorCatcher(async (req, res, next) => {
     if (isOAuthRedirect) {
         if (config.authType === 'oauth2') {
             if (req.query.code) {
-                try {
-                    req.authData.realmId = req.query.realmId
-                    instance = await createInstanceOauth(req, req.query.code, config)
-                    res.send(instance)
-                    req.application.notificationEmail ? sendNotification(req.application.notificationEmail, instance) : null
-                    return
-                    //successfully created oauth instance
-                } catch (error) {
-                    //handle failed oauth in errorCatcher
-                    throw error
-                }
+                //successfully created oauth instance, errors handled through asyncErrorCatcher
+                req.authData.realmId = req.query.realmId
+                instance = await createInstanceOauth(req, req.query.code, config)
+                res.send(instance)
+                req.application.notificationEmail ? sendNotification(req.application.notificationEmail, instance) : null
+                return
             } else {
-                //handle failed oauth in errorCatcher
-                throw error
+                res.status(500)
+                throw new Error(`Oauth2 redirect failed`)
             }
         } else if (config.authType === 'oauth1') {
             if (req.query.oauth_token && req.query.oauth_verifier) {
-                try {
-                    instance = await createInstanceOauth1(req, req.cookies.secret, config)
-                    res.send(instance)
-                    req.application.notificationEmail ? sendNotification(req.application.notificationEmail, instance) : null
-                    return
-                } catch (error) {
-                    //handle failed oauth in errorCatcher
-                    throw error
-
-                }
+                instance = await createInstanceOauth1(req, req.cookies.secret, config)
+                res.send(instance)
+                req.application.notificationEmail ? sendNotification(req.application.notificationEmail, instance) : null
+                return
             } else {
-                //handle failed oauth in errorCatcher
-                throw error
+                res.status(500)
+                throw new Error(`Oauth2 redirect failed`)
             }
         }
     }

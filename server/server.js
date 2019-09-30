@@ -9,6 +9,7 @@ const path = require('path')
 const app = express()
 const hbs = require('hbs')
 const cookieParser = require('cookie-parser')
+const { logger } = require("./logger")
 
 hbs.registerPartials(path.resolve(__dirname, '../views/partials'))
 hbs.registerHelper('ifCond', function (var1, var2, options) {
@@ -34,4 +35,4 @@ app.use('/v1', ui)
 
 app.use(require('./errorCatcher'))
 
-app.listen(process.env.PORT, () => console.log(`Listening on port ${process.env.PORT}`))
+app.listen(process.env.PORT, () => logger.info(`Listening on port ${process.env.PORT}`))
