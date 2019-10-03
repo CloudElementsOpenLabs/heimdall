@@ -2,19 +2,10 @@
 
 const { logger } = require("./logger")
 
-//remove sensitive data inroute to ce
-const sanitizeError = (e) => {
-    let err = JSON.parse(JSON.stringify(e))
-    delete err.options
-    err.req && delete e.req.authData
-    err.response && err.response.request && delete err.response.request.headers
-    return err
-}
-
 module.exports = (err, req, res, next) => {
 
     res.status(err.statusCode ? err.statusCode : res.statusCode)
-    
+
     //logging
     let message, requestId, providerMessage
     if ((req.method == 'POST' || req.method == 'PUT') && req.body instanceof Array) {
@@ -45,12 +36,10 @@ module.exports = (err, req, res, next) => {
     }
 
     //server logs
-    logger.error({ message, providerMessage, requestId, error: sanitizeError(err) })
+    logger.error({ message, providerMessage, requestId, stack:err.stack })
 
-    if (req.path.includes('api')) {
-        res.json({ message, providerMessage, requestId })
-    }
-    else {
-        res.json({ message, providerMessage, requestId })
-    }
+    //send response
+    //providerMessage and requestId are only set if error originates at CE
+    res.json({ message, providerMessage, requestId })
+
 }
