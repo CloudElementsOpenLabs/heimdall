@@ -6,9 +6,8 @@ const logger = winston.createLogger({
     level: 'info',
     format: format.combine(
         format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
-        format.errors({ stack: true }),
         format.json()),
-    defaultMeta: { node_env: process.env.NODE_ENV }
+    defaultMeta: { service: "heimdall", node_env: process.env.NODE_ENV, base_url: process.env.BASE_URL, ce_base_url: process.env.CE_BASE_URL }
 })
 
 if (process.env.NODE_ENV === 'development') {
@@ -21,7 +20,7 @@ if (process.env.NODE_ENV === 'development') {
 } else {
     logger.add(new transports.Console({
         handleExceptions: true,
-        humanReadableUnhandledException: true,
+        humanReadableUnhandledException: false,
         exitOnError: false
     }))
 }

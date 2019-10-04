@@ -1,11 +1,11 @@
 'use strict'
-
+const { logger } = require("../server/logger")
 const { post } = require('./api')
 const authData = {
     userSecret: process.env.SENDGRID_USER,
     orgSecret: process.env.SENDGRID_ORG,
     elementToken: process.env.SENDGRID_TOKEN
-} 
+}
 
 module.exports = async (email, instance) => {
     const message = {
@@ -16,8 +16,8 @@ module.exports = async (email, instance) => {
         The following element instance has been created: ${instance.name}`
     }
     try {
-        let response = await post('messages', message, authData)
+        await post('messages', message, authData)
     } catch (err) {
-        console.error("Failed to send email notification", err)
+        logger.error({message:"Failed to send email notification" , error: err.error, body:message})
     }
 }

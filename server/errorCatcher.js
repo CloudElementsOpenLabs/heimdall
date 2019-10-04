@@ -16,6 +16,10 @@ module.exports = (err, req, res, next) => {
         message = "Record with provided ID not found"
         res.status(404)
     }
+    else if (err.name === 'SequelizeUniqueConstraintError') {
+        message = "Record already exists"
+        res.status(400)
+    }
     // Prefer CE error message 
     else if (err.error && err.error.requestId) {
         requestId = err.error.requestId
@@ -36,7 +40,7 @@ module.exports = (err, req, res, next) => {
     }
 
     //server logs
-    logger.error({ message, providerMessage, requestId, stack:err.stack })
+    logger.error({ message, providerMessage, requestId, method: req.method, hostname: req.hostname, path: req.path, url: req.url})
 
     //send response
     //providerMessage and requestId are only set if error originates at CE
