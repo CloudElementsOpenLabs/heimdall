@@ -1,6 +1,6 @@
 {
   "name": "heimdall",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Provisioning app",
   "main": "server.js",
   "scripts": {
@@ -20,26 +20,26 @@
   },
   "homepage": "https://github.com/CloudElementsOpenLabs/heimdall#readme",
   "dependencies": {
-    "body-parser": "^1.18.3",
-    "cookie-parser": "^1.4.3",
-    "express": "^4.16.3",
-    "hbs": "^4.0.4",
-    "jsonwebtoken": "^8.3.0",
-    "pg": "^7.4.3",
-    "pg-hstore": "^2.3.2",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.4",
+    "express": "^4.17.1",
+    "hbs": "^4.0.5",
+    "jsonwebtoken": "^8.5.1",
+    "pg": "^7.12.1",
+    "pg-hstore": "^2.3.3",
     "ramda": "^0.25.0",
     "request": "^2.88.0",
-    "request-promise": "^4.2.2",
-    "sequelize": "^5.17.2",
+    "request-promise": "^4.2.4",
+    "sequelize": "^5.19.2",
     "winston": "^3.2.1"
   },
   "devDependencies": {
     "babel-jest": "^23.4.2",
     "jest": "^23.6.0",
     "jest-environment-node": "^23.4.0",
-    "jest-puppeteer": "^3.5.2",
-    "puppeteer": "^1.8.0",
-    "supertest": "^3.3.0"
+    "jest-puppeteer": "^3.9.1",
+    "puppeteer": "^1.20.0",
+    "supertest": "^3.4.2"
   },
   "jest": {
     "preset": "jest-puppeteer",
