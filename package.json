@@ -4,7 +4,7 @@
   "description": "Provisioning app",
   "main": "server.js",
   "scripts": {
-    "docker": "docker build -t cloudelements/heimdall:${npm_package_version} .",
+    "docker": "docker build --no-cache -t cloudelements/heimdall:${npm_package_version} .",
     "postdocker": "docker push cloudelements/heimdall",
     "test": "jest api-router",
     "ui-test": "jest ui-router"
