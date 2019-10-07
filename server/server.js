@@ -22,10 +22,10 @@ hbs.registerHelper('ifCond', function (var1, var2, options) {
 app.set('view engine', 'hbs')
 
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded())
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cookieParser())
 
-//serve the sdk paramertized to the environment, 
+//serve the sdk paramertized to the environment 
 app.use('/v1/public/javascripts/:heimdall-sdk(\.js|\-staging\.js)', (req, res, next) => {
   res.type('application/javascript')
   res.render(`heimdall-sdk`, { baseUrl: process.env.BASE_URL })
