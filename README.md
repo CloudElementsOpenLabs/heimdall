@@ -65,7 +65,7 @@ curl --request POST \
         },
         {
         "dataType": "text",
-        "defaultValue": "https://heimdall-staging.cloud-elements.com/v1/application",
+        "defaultValue": "https://heimdall.cloud-elements.com/v1/application",
         "display": false,
         "key": "oauth.callback.url"
         }
@@ -137,7 +137,7 @@ Hubspot
         },
         {
             "dataType": "text",
-            "defaultValue": "https://heimdall-staging.cloud-elements.com/v1/application",
+            "defaultValue": "https://heimdall.cloud-elements.com/v1/application",
             "display": false,
             "key": "oauth.callback.url"
         },
@@ -175,7 +175,7 @@ Desk.com
             "dataType": "text",
             "display": false,
             "key": "oauth.callback.url",
-            "defaultValue": "https://heimdall-staging.cloud-elements.com/v1/application"
+            "defaultValue": "https://heimdall.cloud-elements.com/v1/application"
         },
         {
             "dataType": "text",
@@ -233,7 +233,7 @@ This method will expose the user secret on the frontend application. Only use th
 To enable your application to use this configuration, embed this javascript on the front end of your application: 
 
 ```javascript
-<script src="https://heimdall.cloud-elements.com/v1/public/javascripts/heimdall-sdk-staging.js" type="text/javascript"></script>
+<script src="https://heimdall.cloud-elements.com/v1/public/javascripts/heimdall-sdk.js" type="text/javascript"></script>
 <script>
     const callback = function(instance) {
         //Handle the created instance here. Save it in your DB...
@@ -269,7 +269,7 @@ RESPONSE
 ```
 Use the following JS with the returned token: 
 ```javascript
-<script src="https://heimdall.cloud-elements.com/v1/public/javascripts/heimdall-sdk-staging.js" type="text/javascript"></script>
+<script src="https://heimdall.cloud-elements.com/v1/public/javascripts/heimdall-sdk.js" type="text/javascript"></script>
 <script>
     const callback = function(instance) {
         //Handle the created instance here. Save it in your DB...

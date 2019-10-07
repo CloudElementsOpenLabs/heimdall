@@ -25,6 +25,12 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded())
 app.use(cookieParser())
 
+//serve the sdk paramertized to the environment, 
+app.use('/v1/public/javascripts/:heimdall-sdk(\.js|\-staging\.js)', (req, res, next) => {
+  res.type('application/javascript')
+  res.render(`heimdall-sdk`, { baseUrl: process.env.BASE_URL })
+})
+
 app.use('/v1/public', express.static(path.resolve(__dirname, '../public/')))
 
 app.use('/info', health)
