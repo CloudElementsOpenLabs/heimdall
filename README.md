@@ -1,8 +1,8 @@
 # Heimdall
 Cloud Elements Provisioning App. 
 
-Heimdall is authentication as a service. You configure your "application" on Heimdall. Then embed a small
-amount of javascript on your front end, which will enable authentication and instance creation to any element configured for your application. 
+Heimdall is authentication as a service. After configuring your "application" on Heimdall, embed a small
+amount of javascript on your front end to enable authentication and instance creation to any element configured for your application. 
 
 # Table of Contents
 1. [Configuring Your Application](#configureApp)
@@ -13,7 +13,7 @@ amount of javascript on your front end, which will enable authentication and ins
 ### Environments
 
 Heimdall currently has two environments, staging and production. These are tied to Cloud Elements staging and production environments respectively  
-Staging: https://heimdall.stgc0.uswest2.c-e.works   
+Staging: https://heimdall-staging.cloud-elements.com   
 Production: https://heimdall.cloud-elements.com  
   
 
@@ -65,7 +65,7 @@ curl --request POST \
         },
         {
         "dataType": "text",
-        "defaultValue": "https://heimdall.stgc0.uswest2.c-e.works/v1/application",
+        "defaultValue": "https://heimdall.cloud-elements.com/v1/application",
         "display": false,
         "key": "oauth.callback.url"
         }
@@ -137,7 +137,7 @@ Hubspot
         },
         {
             "dataType": "text",
-            "defaultValue": "https://heimdall.stgc0.uswest2.c-e.works/v1/application",
+            "defaultValue": "https://heimdall.cloud-elements.com/v1/application",
             "display": false,
             "key": "oauth.callback.url"
         },
@@ -175,7 +175,7 @@ Desk.com
             "dataType": "text",
             "display": false,
             "key": "oauth.callback.url",
-            "defaultValue": "https://heimdall.stgc0.uswest2.c-e.works/v1/application"
+            "defaultValue": "https://heimdall.cloud-elements.com/v1/application"
         },
         {
             "dataType": "text",
@@ -233,7 +233,7 @@ This method will expose the user secret on the frontend application. Only use th
 To enable your application to use this configuration, embed this javascript on the front end of your application: 
 
 ```javascript
-<script src="https://heimdall.cloud-elements.com/v1/public/javascripts/heimdall-sdk-staging.js" type="text/javascript"></script>
+<script src="https://heimdall.cloud-elements.com/v1/public/javascripts/heimdall-sdk.js" type="text/javascript"></script>
 <script>
     const callback = function(instance) {
         //Handle the created instance here. Save it in your DB...
@@ -269,7 +269,7 @@ RESPONSE
 ```
 Use the following JS with the returned token: 
 ```javascript
-<script src="https://heimdall.cloud-elements.com/v1/public/javascripts/heimdall-sdk-staging.js" type="text/javascript"></script>
+<script src="https://heimdall.cloud-elements.com/v1/public/javascripts/heimdall-sdk.js" type="text/javascript"></script>
 <script>
     const callback = function(instance) {
         //Handle the created instance here. Save it in your DB...

@@ -9,6 +9,7 @@ const path = require('path')
 const app = express()
 const hbs = require('hbs')
 const cookieParser = require('cookie-parser')
+const { logger } = require("./logger")
 
 hbs.registerPartials(path.resolve(__dirname, '../views/partials'))
 hbs.registerHelper('ifCond', function (var1, var2, options) {
@@ -21,8 +22,14 @@ hbs.registerHelper('ifCond', function (var1, var2, options) {
 app.set('view engine', 'hbs')
 
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded())
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cookieParser())
+
+//serve the sdk paramertized to the environment 
+app.use('/v1/public/javascripts/:heimdall-sdk(\.js|\-staging\.js)', (req, res, next) => {
+  res.type('application/javascript')
+  res.render(`heimdall-sdk`, { baseUrl: process.env.BASE_URL })
+})
 
 app.use('/v1/public', express.static(path.resolve(__dirname, '../public/')))
 
@@ -34,4 +41,4 @@ app.use('/v1', ui)
 
 app.use(require('./errorCatcher'))
 
-app.listen(process.env.PORT, () => console.log(`Example app listening on port ${process.env.PORT}!`))
+app.listen(process.env.PORT, () => logger.info(`Listening on port ${process.env.PORT}`))

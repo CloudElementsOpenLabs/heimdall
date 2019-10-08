@@ -13,7 +13,7 @@ const createInstanceOauth1 = require('../../src/createInstanceOauth1')
 const getElement = require('../../src/getElement')
 const sendNotification = require('../../src/sendNotification')
 
-ui.all(/^\/(?!public).*/, uiAuthentication)
+ui.all(/^\/(?!public).*/, asyncErrorCatcher(uiAuthentication))
 
 ui.all('/application', asyncErrorCatcher(async (req, res, next) => {
 
@@ -25,31 +25,25 @@ ui.all('/application', asyncErrorCatcher(async (req, res, next) => {
     if (isOAuthRedirect) {
         if (config.authType === 'oauth2') {
             if (req.query.code) {
-                try {
-                    req.authData.realmId = req.query.realmId
-                    instance = await createInstanceOauth(req, req.query.code, config)
-                    res.send(instance)
-                    req.application.notificationEmail ? sendNotification(req.application.notificationEmail, instance) : null
-                    return
-                    //successfully created oauth instance
-                } catch (error) {
-                    //handle failed oauth
-                }
+                //successfully created oauth instance, errors handled through asyncErrorCatcher
+                req.authData.realmId = req.query.realmId
+                instance = await createInstanceOauth(req, req.query.code, config)
+                res.send(instance)
+                req.application.notificationEmail ? sendNotification(req.application.notificationEmail, instance) : null
+                return
             } else {
-                //handle failed oauth
+                res.status(500)
+                throw new Error(`Oauth2 redirect failed`)
             }
         } else if (config.authType === 'oauth1') {
             if (req.query.oauth_token && req.query.oauth_verifier) {
-                try {
-                    instance = await createInstanceOauth1(req, req.cookies.secret, config)
-                    res.send(instance)
-                    req.application.notificationEmail ? sendNotification(req.application.notificationEmail, instance) : null
-                    return
-                } catch (error) {
-                    //handle failed oauth
-                }
+                instance = await createInstanceOauth1(req, req.cookies.secret, config)
+                res.send(instance)
+                req.application.notificationEmail ? sendNotification(req.application.notificationEmail, instance) : null
+                return
             } else {
-                //handle failed oauth
+                res.status(500)
+                throw new Error(`Oauth2 redirect failed`)
             }
         }
     }
@@ -65,13 +59,13 @@ ui.all('/application', asyncErrorCatcher(async (req, res, next) => {
                 applicationId: req.authData.applicationId,
                 elementKey: req.elementKey,
                 uniqueName: req.uniqueName,
-                instanceId: req.instanceId 
+                instanceId: req.instanceId
             }
             // don't put userSecret on the page if using a heimdall token
-            let method = req.query.token ? { token: req.query.token } : { userSecret: req.authData.userSecret}
+            let method = req.query.token ? { token: req.query.token } : { userSecret: req.authData.userSecret }
             //return instance create page
             res.render(`create-${config.authType}`, Object.assign(data, method))
-            
+
         } else {
             // redirect to source authorization page directly
             const { url, state } = await oauthUrl(req, {}, config)

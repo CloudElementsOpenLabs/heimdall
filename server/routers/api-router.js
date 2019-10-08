@@ -10,7 +10,7 @@ const model = require('../../db/model')
 const query = require('../../db/query')
 const R = require('ramda')
 
-api.all('*', apiAuthentication)
+api.all('*', asyncErrorCatcher(apiAuthentication))
 
 api.get('/elements', asyncErrorCatcher(async (req, res) => {
     res.send(await model.elements.findAll(query.findElements(req.authData.applicationId)))
@@ -60,14 +60,14 @@ api.put('/applications', asyncErrorCatcher(async (req, res) => {
 
 api.get('/url', asyncErrorCatcher(async (req, res) => {
     if (!req.query.elementKey) {
-        res.status(400).send({message: "Must provide elementKey"})
-        return
+        res.status(400)
+        throw new Error("Must provide elementKey")
     }
     try {
         await getElement(req.query.elementKey, req.authData.applicationId)
     } catch (err) {
-        res.status(404).send({message: `No configuration found for elementKey ${req.query.elementKey}`})
-        return
+        res.status(404)
+        throw new Error(`No configuration found for elementKey ${req.query.elementKey}`)
     }
     let token = util.createToken({
         userSecret: req.authData.userSecret,

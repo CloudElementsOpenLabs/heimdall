@@ -2,7 +2,7 @@
 
 const util = require('../src/utils')
 const { applications, elements } = require('../db/model')
-const {pipe} = require('ramda')
+const { pipe } = require('ramda')
 
 const getApplication = async applicationId => {
     let application = await applications.findOne({ where: { id: applicationId } })
@@ -26,8 +26,8 @@ module.exports = async (req, res, next) => {
     if (req.body.instance) {
         res.render('send-result', JSON.stringify({ id: req.body.instance.id, token: req.body.instance.token }))
     }
-   
-    req.elementKey =  await pipe(util.findInRequest('elementKey'), getKeyById)(req)  
+
+    req.elementKey = await pipe(util.findInRequest('elementKey'), getKeyById)(req)
     req.applicationId = util.findInRequest('applicationId', req)
     req.instanceId = util.findInRequest('instanceId', req)
     let userSecret = util.findInRequest('userSecret', req)
@@ -38,16 +38,15 @@ module.exports = async (req, res, next) => {
         req.application = await getApplication(req.applicationId)
         req.instanceId = util.findInRequest('instanceId', req)
         req.authData = {
-            userSecret : userSecret,
-            exp : util.findInRequest('exp', req),
-            iat : util.findInRequest('iat', req),
+            userSecret: userSecret,
+            exp: util.findInRequest('exp', req),
+            iat: util.findInRequest('iat', req),
             //already set, but need in authData too...
-            applicationId : req.applicationId,
-            orgSecret : req.application.orgSecret
+            applicationId: req.applicationId,
+            orgSecret: req.application.orgSecret
         }
-
         next()
-        return
+        return //express continues to process the next if statement, we need to explicitly return
     } else {
         if (req.body.state || req.body.code) {
             // restore all query parameter values from POST body so instance creation workflow works
@@ -66,7 +65,9 @@ module.exports = async (req, res, next) => {
         }
     }
     if (!token) {
-        res.status(401).send({ message: "Unauthorized, no userSecret or state found" })
+        res.status(401)
+        throw new Error('Unauthorized, no userSecret or state found')
+
     } else if (req.query.state && !req.body.state && !req.body.code) {
         // redirected from oauth -- need to render loading screen
         res.render(`load-create`)
@@ -76,24 +77,17 @@ module.exports = async (req, res, next) => {
         if (req.body.state || req.body.code) {
             delete req.body
         }
-
-        try {
-            //process token from cookie
-            req.authData = util.parseToken(token)
-            req.elementKey = req.authData.elementKey
-            req.uniqueName = req.authData.uName
-            req.instanceId = req.authData.instanceId
-            req.application = await getApplication(req.authData.applicationId)
-            req.authData.orgSecret = req.application.orgSecret
-            if (req.instanceId === "undefined") { delete req.instanceId } 
-            delete req.authData.elementKey
-            delete req.authData.uName
-            req.token = token
-            next()
-        } catch (err) {
-            res.status(401)
-            next(new Error(`The token is invalid, please re-launch the connector`))
-        }
+        //process token from cookie
+        req.authData = util.parseToken(token)
+        req.elementKey = req.authData.elementKey
+        req.uniqueName = req.authData.uName
+        req.instanceId = req.authData.instanceId
+        req.application = await getApplication(req.authData.applicationId)
+        req.authData.orgSecret = req.application.orgSecret
+        if (req.instanceId === "undefined") { delete req.instanceId }
+        delete req.authData.elementKey
+        delete req.authData.uName
+        req.token = token
+        next()
     }
-
 }
