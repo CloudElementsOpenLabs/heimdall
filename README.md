@@ -12,7 +12,8 @@ amount of javascript on your front end to enable authentication and instance cre
 
 ### Environments
 
-Heimdall currently has two environments, staging and production. These are tied to Cloud Elements staging and production environments respectively. We don't currently have support for your EU production environment
+Heimdall currently has two environments, staging and production. These are tied to Cloud Elements staging and production environments respectively. We don't currently have support for your EU production environment 
+
 Staging: https://heimdall-staging.cloud-elements.com   
 Production: https://heimdall.cloud-elements.com  
   
