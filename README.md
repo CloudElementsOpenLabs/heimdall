@@ -19,7 +19,7 @@ Production: https://heimdall.cloud-elements.com
   
 ### hosting
 
-Heimdall can be used/tested with out hosted version but when you actually use heimdall you can either pay cloud elements to host your production application or you can host it yourself on your own servers. Below you will learn more about testing with our hosted heimdall or hosting it locally for testing
+Heimdall can be used/tested with out hosted version but when you actually use heimdall you can either pay cloud elements to host your production application (please talk to your account manager about the costs associated with this) or you can host it yourself on your own servers. Below you will learn more about testing with our hosted heimdall or hosting it locally for testing
 
 ## Configuring your application <a name="configureApp"></a>  
 
