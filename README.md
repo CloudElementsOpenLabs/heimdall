@@ -4,12 +4,6 @@ Cloud Elements Provisioning App.
 Heimdall is authentication as a service. After configuring your "application" on Heimdall, embed a small
 amount of javascript on your front end to enable authentication and instance creation to any element configured for your application. 
 
-# Table of Contents
-1. [Configuring Your Application](#configureApp)
-2. [Configuring Elements](#configureElements)
-3. [Usage](#usage)
-4. [Local Installation](#localInstallation)
-
 ### Environments
 
 Heimdall currently has two environments, staging and production. These are tied to Cloud Elements staging and production environments respectively. We don't currently have support for your EU production environment 
@@ -17,9 +11,17 @@ Heimdall currently has two environments, staging and production. These are tied 
 Staging: https://heimdall-staging.cloud-elements.com   
 Production: https://heimdall.cloud-elements.com  
   
-### hosting
+### Hosting 
 
-Heimdall can be used/tested with out hosted version but when you actually use heimdall you can either pay cloud elements to host your production application (please talk to your account manager or sales representitive about the costs associated with this) or you can host it yourself on your own servers. Below you will learn more about testing with our hosted heimdall or hosting it locally for testing
+Heimdall can be used/tested with our hosted version, free of charge, during your development. When it is time for you to use Heimdall at a production level, you have the option to license Cloud Elements to host your production application for you. To understand the costs associated with this, please talk to your Account Manager or Sales Executive. Alternatively, you can host it yourself on your own servers. Below you will learn more about testing with our hosted Heimdall or hosting it locally for testing.
+
+# Table of Contents
+1. [Configuring Your Application](#configureApp)
+2. [Configuring Elements](#configureElements)
+3. [Usage](#usage)
+4. [Local Installation](#localInstallation)
+
+
 
 ## Configuring your application <a name="configureApp"></a>  
 
