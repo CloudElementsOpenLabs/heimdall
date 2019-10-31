@@ -6,11 +6,16 @@ amount of javascript on your front end to enable authentication and instance cre
 
 ### Environments
 
-Heimdall currently has two environments, staging and production. These are tied to Cloud Elements staging and production environments respectively. We don't currently have support for your EU production environment 
+Heimdall currently utilizes three environments: staging, production and EU production.  
+Each Heimdall environment depends on a respective Cloud Elements environment:
 
-Staging: https://heimdall-staging.cloud-elements.com   
-Production: https://heimdall.cloud-elements.com  
-  
+
+|    |  Heimdall Base URL | CE Base URL | CE Login |
+| :- |:- |:- |:- |
+|US Staging:    | heimdall-staging.cloud-elements.com | staging.cloud-elements.com | my-staging.cloudelements.io |
+|US Production: | heimdall.cloud-elements.com         | api.cloud-elements.com |  my.cloudelements.io |
+|EU Production: | heimdall.cloud-elements.co.uk       | api.cloud-elements.co.uk | my.cloudelements.co.uk |
+
 ### Hosting 
 
 Heimdall can be used/tested with our hosted version, free of charge, during your development. When it is time for you to use Heimdall at a production level, you have the option to license Cloud Elements to host your production application for you. To understand the costs associated with this, please talk to your Account Manager or Sales Executive. Alternatively, you can host it yourself on your own servers. Below you will learn more about testing with our hosted Heimdall or hosting it locally for testing.
@@ -83,39 +88,45 @@ curl --request POST \
 This call will automatically tie this element to your application based on your authorization header. 
 ```bash 
 {
-    // The Cloud Elements element key. Can be found by calling GET /elements
+    # The Cloud Elements element key. Can be found by calling GET /elements
     "key": "desk",
     
-    // The name you want to display when creating an instance
+    # The name you want to display when creating an instance
     "name": "Desk.com",
 
-    // Either: oauth1, oauth2, or basic
+    # Either: oauth1, oauth2, or basic
     "authType": "oauth1",     
+  
+    # Each property object will render a form field: 
     "properties": [
         {
-            // Can be: text, password, or picklist.  
+            # Can be: text, password, or picklist.  
             "dataType": "text", 
 
-            // If this property is set to display, the description will show as a tooltip.  
+            # If this property is set to display, the description will show as a tooltip.  
             "description": null, 
 
-            // The text to display as the text box label.  
+            # The text to display as the text box label.  
             "displayName": null, 
 
-            // Whether or not to display this property on a form. If no properties are set to display no form will be shown. This would be for pure oauth.  
+            # Whether or not to display or hide this form input. 
+            # If all properties are configured to display false, no form will be shown and the defaultValues will be used for a pure oauth flow.  
             "display": false, 
 
-            // An integer representing the order in which to display these fields on the generated form. 
+            # An integer representing the order in which to display these fields on the generated form. 
             "displayOrder": 1, 
 
-            // The configuration property key, can be found in developer documentation. This is the key that will be sent to POST /instances in the configuration body. 
+            # The configuration property key, can be found in developer documentation. 
+            # This is the key that will be sent to POST /instances in the configuration body. 
             "key": "oauth.api.key", 
 
-            // A default value. If this property is on a form it will display this value. Otherwise this property will always be the configured value.   
+            # A default value. If this property is on a form it will display this value in the form input. 
+            # Otherwise this property will always be the configured value. 
             "defaultValue": "Ob1sF24qy48f7eayf7NnE1OC", 
             
-            // This property will be sent as a query parameter with this name on the call to GET /oauth/url if this is set. Used if there is a subdomain.  
-            "oauthUrlParam": null 
+            # Used if there is a subdomain
+            # Sends both "key:value" and "siteAddress:value" to GET elements/{elementKey}/oauth/url and will return with the value prepended on the url. 
+            "oauthUrlParam": "siteAddress"
         }
     ]
 }
