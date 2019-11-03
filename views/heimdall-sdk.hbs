@@ -1,22 +1,31 @@
-var CE = (function() { 
+var CE = (function() {
+        function win() {
+            var _win
+            return {
+                set: function(win) { _win = win },
+                get: function() { return _win }
+            }
+        }
         return {
             createInstance: function(info, callback) {
                 if (info.token) {
-                    window.open(`{{{baseUrl}}}/v1/application?token=${info.token}`)
+                    win.set(window.open(`{{{baseUrl}}}/v1/application?token=${info.token}`))
                 } else if (info.elementKey && info.userSecret && info.applicationId) {
-                    window.open(`{{{baseUrl}}}/v1/application?elementKey=${info.elementKey}&userSecret=${info.userSecret}&applicationId=${info.applicationId}&uniqueName=${info.uniqueName}&instanceId=${info.instanceId}`)
+                    win.set(window.open(`{{{baseUrl}}}/v1/application?elementKey=${info.elementKey}&userSecret=${info.userSecret}&applicationId=${info.applicationId}&uniqueName=${info.uniqueName}&instanceId=${info.instanceId}`))
                 } else {
                     throw new Error("Must provide either a token or element, userSecret and applicationId")
                 }
 
                 if (callback) {
                     window.addEventListener('message', recieveMessage);
+                    win.get().addEventListener('unload', callback)
                     function recieveMessage(e) {
                         callback(e.data)
-                    } 
+                    }
                 } else {
                     return new Promise(function (resolve) {
                         window.addEventListener('message', recieveMessage);
+                        win.get().addEventListener('unload', reject)
                         function recieveMessage(e) {
                             resolve(e.data)
                         }
