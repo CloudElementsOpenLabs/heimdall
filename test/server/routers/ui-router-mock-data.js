@@ -69,7 +69,7 @@ const BOX = {
             displayName: null,
             display: false,
             key: "oauth.api.key",
-            defaultValue: "tfyvgvmvs5wzr8xx1dzm2pmsh5kqtx00",
+            defaultValue: "5jgzkn7wverxdc8gfcrjq44iwkppj2gp",
             oauthUrlParam: null,
             created_date: "2018-07-11T20:09:27.553Z",
             updated_date: "2018-07-11T20:09:27.553Z"
@@ -82,7 +82,7 @@ const BOX = {
             displayName: null,
             display: false,
             key: "oauth.api.secret",
-            defaultValue: "YOO55vewjwMZTn7Q7Z3TAM0hbm8REHPP",
+            defaultValue: "dPUtYP7ZUPmUdnB94k0OgvHU7uMBXqSC",
             oauthUrlParam: null,
             created_date: "2018-07-11T20:09:27.553Z",
             updated_date: "2018-07-11T20:09:27.553Z"
@@ -95,7 +95,7 @@ const BOX = {
             displayName: null,
             display: false,
             key: "oauth.callback.url",
-            defaultValue: "https://heimdall-staging.cloud-elements.com/v1/applications",
+            defaultValue: "https://heimdall-staging.cloud-elements.com/v1/application",
             oauthUrlParam: null,
             created_date: "2018-07-11T20:09:27.554Z",
             updated_date: "2018-07-11T20:09:27.554Z"
@@ -183,8 +183,6 @@ const credentials = {
         password: process.env.TEST_DESK_PASSWORD
     }
 }
-
-console.log(process.env.TEST_BIGCOMMERCE_USERNAME)
 
 module.exports =  {
     BIG_COMMERCE,

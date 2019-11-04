@@ -12,13 +12,14 @@
 
 <body>
     <script>
-        const callback = function (instance) {
-            document.getElementById('payload').innerHTML = ""
-            console.log(instance)
-            document.getElementById('payload').innerHTML = JSON.stringify(instance, null, 2)
-        }
         let urlParams = new URLSearchParams(window.location.search);
         let token = urlParams.get('token');
+        let testResult
+        const callback = function (instance) {
+            testResult = instance
+            document.getElementById('payload').innerHTML = ""
+            document.getElementById('payload').innerHTML = JSON.stringify(instance, null, 2)
+        }
         const create = () => {
             CE.createInstance({ token }, callback)
         }

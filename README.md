@@ -317,19 +317,20 @@ RESPONSE
 ```
 
 ## Local Installation <a name="localInstallation"></a>
-The Heimdall application will need to acess a postgres database. We use Sequelize to set up all the necesary tables, but you must complete the next steps in order to set up your postgres enviroment.
+The Heimdall application will need to acess to a PostgreSQL database on your localhost. [Sequelize](https://www.npmjs.com/package/sequelize) sets up the necesary tables but you must first manually create the database and assign a role.
 
-### 1. Install Postgresql
-You can follow the official documentation to install postgresql on this link: https://www.postgresql.org/download/
+### 1. Install PostgreSQL
+Follow the official documentation to [install postgresql](https://www.postgresql.org/download) or use the package manager [homebrew](https://formulae.brew.sh/formula/postgresql).
+
 
 ### 2. Create a Role and Database on Postgresql
-Once completed the postgres installation you must create a role and a database based on the enviroment.json file.
-Execute the following commands on the postgresql terminal.
+Execute the following commands on the postgresql terminal:
 ```bash
-CREATE ROLE heimdall WITH LOGIN PASSWORD 'heimdalldb';
-ALTER ROLE heimdall CREATEDB;
-CREATE DATABASE heimdall;
+    CREATE ROLE heimdall WITH LOGIN PASSWORD 'heimdalldb';
+    ALTER ROLE heimdall CREATEDB;
+    CREATE DATABASE heimdall;
 ```
+When heimdall starts up, it will attempt to authenticate to the database specified by the `PGDATABASE` environment variable and will create the necessary schema defined in the [db/script.sql](./db/script.sql) file.
 
 ### 3. Enviroment Variables
 In order to run or test your Heimdall application you must set a group of enviroment variables that heimdall will access. Here are the required variables:

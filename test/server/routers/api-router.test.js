@@ -1,7 +1,7 @@
 'use strict'
 
 const request = require('supertest')
-const { server, authOrg, authorization, destroyApplication , closeConnection } = require('./api-test')
+const { server, authOrg, authHeader, destroyApplication , closeConnection } = require('./api-test')
 
 const mocks = require('./api-router-mock-data')
 
@@ -21,7 +21,7 @@ describe('Applications Integration Tests', () => {
     const response = await request(server)
     .post('/applications')
     .send(mocks.POST_APPLICATION)
-    .set('Authorization', authorization)
+    .set('Authorization', authHeader)
     .set('Content-Type', 'application/json')
     
     expect(response.status).toBe(200)
@@ -32,17 +32,17 @@ describe('Applications Integration Tests', () => {
     const response = await request(server)
     .post('/applications')
     .send(mocks.POST_APPLICATION)
-    .set('Authorization', authorization)
+    .set('Authorization', authHeader)
     .set('Content-Type', 'application/json')
 
-    expect(response.status).toBe(200)
-    expect(response.body.message).toBe('Validation error')
+    expect(response.status).toBe(400)
+    expect(response.body.message).toBe('Record already exists')
   })
 
   test('GET Applications - Get all the applications for a organization secret', async () => {
     const response = await request(server)
     .get('/applications')
-    .set('Authorization', authorization)
+    .set('Authorization', authHeader)
     .set('Content-Type', 'application/json')
 
     expect(response.status).toBe(200)
@@ -55,7 +55,7 @@ describe('Applications Integration Tests', () => {
     const response = await request(server)
     .put('/applications')
     .send(mocks.PUT_APPLICATION)
-    .set('Authorization', authorization)
+    .set('Authorization', authHeader)
     .set('Content-Type', 'application/json')
 
     expect(response.status).toBe(200)
@@ -72,7 +72,7 @@ describe('Elements Integration Tests', () => {
         const response = await request(server)
         .post('/elements')
         .send(mocks.POST_ELEMENT)
-        .set('Authorization', authorization)
+        .set('Authorization', authHeader)
         .set('Content-Type', 'application/json')
 
         elementId = response.body.id
@@ -84,7 +84,7 @@ describe('Elements Integration Tests', () => {
     test('GET Elements - Get an element by id', async () => {
         const response = await request(server)
         .get(`/elements/${elementId}`)
-        .set('Authorization', authorization)
+        .set('Authorization', authHeader)
         .set('Content-Type', 'application/json')
 
         expect(response.status).toBe(200)
@@ -92,7 +92,7 @@ describe('Elements Integration Tests', () => {
 
         const newResponse = await request(server)
         .get(`/elements/0`)
-        .set('Authorization', authorization)
+        .set('Authorization', authHeader)
         .set('Content-Type', 'application/json')
 
         expect(newResponse.status).toBe(404)
@@ -103,7 +103,7 @@ describe('Elements Integration Tests', () => {
         const response = await request(server)
         .put(`/elements/${elementId}`)
         .send(mocks.PUT_ELEMENT(elementId))
-        .set('Authorization', authorization)
+        .set('Authorization', authHeader)
         .set('Content-Type', 'application/json')
 
         expect(response.status).toBe(200)
@@ -117,7 +117,7 @@ describe('Elements Integration Tests', () => {
     test('DELETE Elements - Delete an element', async () => {
         const response = await request(server)
         .delete(`/elements/${elementId}`)
-        .set('Authorization', authorization)
+        .set('Authorization', authHeader)
         .set('Content-Type', 'application/json')
 
         expect(response.status).toBe(200)
