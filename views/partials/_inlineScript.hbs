@@ -12,4 +12,10 @@
             $('button[type="submit"]').prop("disabled", isDisabled)
         })
     })
+    window.onload = function () {
+        const sendMessage = (data) => {
+            window.opener.postMessage('heimdall unload', "*")
+        }
+        window.addEventListener('beforeunload', sendMessage)
+    }
 </script>
