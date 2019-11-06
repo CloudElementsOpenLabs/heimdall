@@ -12,10 +12,12 @@
             $('button[type="submit"]').prop("disabled", isDisabled)
         })
     })
-    window.onload = function () {
-        const sendMessage = (data) => {
-            window.opener.postMessage('heimdall unload', "*")
-        }
-        window.addEventListener('beforeunload', sendMessage)
+
+    var submitted = false
+    const sendEventMessage = () => {
+        //determine if unload fired due to oauth redirects or form submission
+        let msg = submitted ? { message: 'submitted' } : { message: 'unloaded' }
+        window.opener.postMessage(msg, "*")
     }
+    window.addEventListener('unload', sendEventMessage)
 </script>
