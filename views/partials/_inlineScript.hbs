@@ -14,10 +14,16 @@
     })
 
     var submitted = false
-    const sendEventMessage = () => {
-        //determine if unload fired due to oauth redirects or form submission
-        let msg = submitted ? { message: 'submitted' } : { message: 'unloaded' }
-        window.opener.postMessage(msg, "*")
-    }
-    window.addEventListener('unload', sendEventMessage)
+
+    $(function () {
+        const sendEventMessage = () => {
+            let msg = submitted ? { message: 'submitted' } : { message: 'unloaded' }
+            window.opener.postMessage(msg, "*")
+        }
+        //captures refresh
+        window.addEventListener('beforeunload', sendEventMessage)
+        //captures submit and window close
+        window.addEventListener('unload', sendEventMessage)
+    })
+
 </script>
