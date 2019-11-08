@@ -1,19 +1,19 @@
- 
- {{>_header}}
+{{>_header}}
 
 <!-- Instance creation -->
 <div id="instance-creation" class="connector-panel">
     <h3><span class="hidden-span">Connect to </span>{{config.name}}</h3>
     <form id="configure-instance" method="post" class="instance-form">
-        {{#each config.properties}} {{#ifCond display true}} 
+        {{#each config.properties}} {{#ifCond display true}}
         {{#ifCond dataType 'text'}}
         <div class="row">
             <div class="col-25">
                 <label for="{{{key}}}">{{{displayName}}} *</label>
             </div>
             <div class="col-75">
-                <input id="{{{key}}}" class="input-box" name="{{{key}}}"  value="{{{defaultValue}}}" data-container="body" data-toggle="popover" 
-                    data-trigger="hover" data-placement="right" data-content="{{{description}}}" required>
+                <input id="{{{key}}}" class="input-box" name="{{{key}}}" value="{{{defaultValue}}}"
+                    data-container="body" data-toggle="popover" data-trigger="hover" data-placement="right"
+                    data-content="{{{description}}}" required>
             </div>
             <div class="col-15">
                 <div class="tooltip-show">
@@ -22,7 +22,7 @@
                 </div>
             </div>
         </div>
-        {{/ifCond}} 
+        {{/ifCond}}
         {{#ifCond dataType 'picklist'}}
         <fieldset>
             <div class="row">
@@ -31,12 +31,12 @@
                 </div>
                 <div class="col-75">
                     <select id="{{{key}}}" name="{{{key}}}" title="{{{description}}}">
-                        {{#each picklistOptions}} 
-                            {{#ifCond ../defaultValue value}}
-                                <option value="{{{value}}}" selected>{{display}}</option>
-                            {{else}}
-                                <option value="{{{value}}}">{{display}}</option>
-                            {{/ifCond}} 
+                        {{#each picklistOptions}}
+                        {{#ifCond ../defaultValue value}}
+                        <option value="{{{value}}}" selected>{{display}}</option>
+                        {{else}}
+                        <option value="{{{value}}}">{{display}}</option>
+                        {{/ifCond}}
                         {{/each}}
                     </select>
                 </div>
@@ -48,30 +48,32 @@
                 </div>
             </div>
         </fieldset>
-        {{/ifCond}} 
+        {{/ifCond}}
         {{#ifCond dataType 'password'}}
-            <div class="row">
-                <div class="col-25">
-                    <label for="{{{key}}}">{{{displayName}}} *</label>
-                </div>
-                <div class="col-75">
-                    <input type="password" class="input-box" id="{{{key}}}" name="{{{key}}}" value="{{{defaultValue}}}" data-container="body" data-toggle="popover" 
-                        data-trigger="hover" data-placement="right" data-content="{{{description}}}" required>
-                </div>
-                <div class="col-15">
-                    <div class="tooltip-show">
-                        <img id="info" src="public/images/Info.svg">
-                        <span>{{{description}}}</span>
-                    </div>
+        <div class="row">
+            <div class="col-25">
+                <label for="{{{key}}}">{{{displayName}}} *</label>
+            </div>
+            <div class="col-75">
+                <input type="password" class="input-box" id="{{{key}}}" name="{{{key}}}" value="{{{defaultValue}}}"
+                    data-container="body" data-toggle="popover" data-trigger="hover" data-placement="right"
+                    data-content="{{{description}}}" required>
+            </div>
+            <div class="col-15">
+                <div class="tooltip-show">
+                    <img id="info" src="public/images/Info.svg">
+                    <span>{{{description}}}</span>
                 </div>
             </div>
-            {{/ifCond}} 
+        </div>
+        {{/ifCond}}
         {{/ifCond}} {{/each}}
         <div class="row">
-            <button type="submit" class="btn connector-button" data-loading-text="<i class='fa fa-spinner fa-spin'></i> Connecting">Connect</button>
+            <button type="submit" class="btn connector-button"
+                data-loading-text="<i class='fa fa-spinner fa-spin'></i> Connecting">Connect</button>
         </div>
         {{#if token}}
-         <input id="token" name="token" type="hidden" value="{{{token}}}">
+        <input id="token" name="token" type="hidden" value="{{{token}}}">
         {{else}}
         <input id="userSecret" name="userSecret" type="hidden" value="{{{userSecret}}}">
         {{/if}}
@@ -83,33 +85,35 @@
 </div>
 
 <script>
-    $('.connector-button').on('click', function() {
-        $(this).button('loading')
-    });
-
-    $('[data-toggle="popover"]').popover();
-
-    $('#configure-instance').submit(function (e) {
-        e.preventDefault();
-        $.ajax({
-            url: '/v1/instances',
-            method: 'POST',
-            data: $('#configure-instance').serialize(),
-            error: function (err) {
-                $("#error_box").fadeIn(500)
-                let element = document.getElementById('error_box')
-                element.innerHTML = `<img src="public/images/error.svg" style="padding-right:7px; padding-bottom: 1px"/><span>Sorry, we didn't recognize your connection details. Please check your entry and try again.</span>`
-                $('.connector-button').button('reset')
-            },
-            success: function(data) {
-                // Send the instance to the opening window
-                $('.connector-button').button('reset')
-                const targetWindow = window.opener;
-                targetWindow.postMessage(data, '*');
-                window.close();
-            }
+    $(function () {
+        $('.connector-button').on('click', function () {
+            submitted = true
+            $(this).button('loading')
         });
-    });
-</script> 
-{{>_inlineScript}} 
+
+        $('[data-toggle="popover"]').popover();
+
+        $('#configure-instance').submit(function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: '/v1/instances',
+                method: 'POST',
+                data: $('#configure-instance').serialize(),
+                error: function (err) {
+                    $("#error_box").fadeIn(500)
+                    let element = document.getElementById('error_box')
+                    element.innerHTML = `<img src="public/images/error.svg" style="padding-right:7px; padding-bottom: 1px"/><span>Sorry, we didn't recognize your connection details. Please check your entry and try again.</span>`
+                    $('.connector-button').button('reset')
+                },
+                success: function (data) {
+                    // Send the instance to the opening window
+                    window.opener.postMessage(data, '*')
+                    window.opener.postMessage({ message: 'completed' }, '*')
+                    window.close()
+                }
+            });
+        });
+    })    
+</script>
+{{>_inlineScript}}
 {{>_footer}}

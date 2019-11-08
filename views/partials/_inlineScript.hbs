@@ -12,4 +12,13 @@
             $('button[type="submit"]').prop("disabled", isDisabled)
         })
     })
+
+    var submitted = false
+    $(function () {
+        const sendEventMessage = () => {
+            const message = submitted ? 'submitted' : 'unloaded'
+            window.opener.postMessage({ message }, "*")
+        }
+        window.addEventListener('beforeunload', sendEventMessage)
+    })
 </script>

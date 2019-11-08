@@ -5,25 +5,30 @@
     <meta http-equiv="Cache-Control" content="no-store" />
 
 
-    <script src="javascripts/jquery.min.js" type="text/javascript"></script>
+    <script src="../../../public/javascripts/jquery.min.js"></script>
     <!-- <script src="javascripts/send-token.js" type="text/javascript"></script> -->
-    <script src="https://heimdall-staging.cloud-elements.com/v1/public/javascripts/heimdall-sdk.js" type="text/javascript"></script>
+    <script src="https://heimdall-staging.cloud-elements.com/v1/public/javascripts/heimdall-sdk.js"
+        type="text/javascript"></script>
 </head>
 
 <body>
     <script>
-        let urlParams = new URLSearchParams(window.location.search);
-        let token = urlParams.get('token');
-        let testResult
+        const urlParams = new URLSearchParams(window.location.search);
+        const token = urlParams.get('token');
+        let testResult //polled by jest for a value
+
         const callback = function (instance) {
-            testResult = instance
-            document.getElementById('payload').innerHTML = ""
+            if (instance.id) {
+                testResult = instance
+            }
             document.getElementById('payload').innerHTML = JSON.stringify(instance, null, 2)
         }
+
         const create = () => {
             CE.createInstance({ token }, callback)
         }
-    </script> Simulate Launch Connector
+    </script>
+    Simulate Launch Connector
     <br>
     <br>
     <button id="connect" onclick="create()">Connect to Anything</button>
