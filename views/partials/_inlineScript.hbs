@@ -14,16 +14,11 @@
     })
 
     var submitted = false
-
     $(function () {
         const sendEventMessage = () => {
-            let msg = submitted ? { message: 'submitted' } : { message: 'unloaded' }
-            window.opener.postMessage(msg, "*")
+            const message = submitted ? 'submitted' : 'unloaded'
+            window.opener.postMessage({ message }, "*")
         }
-        //captures refresh
         window.addEventListener('beforeunload', sendEventMessage)
-        //captures submit and window close
-        window.addEventListener('unload', sendEventMessage)
     })
-
 </script>

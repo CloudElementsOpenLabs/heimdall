@@ -22,13 +22,23 @@
 
         /* Safari */
         @-webkit-keyframes spin {
-            0% { -webkit-transform: rotate(0deg); }
-            100% { -webkit-transform: rotate(360deg); }
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
         }
 
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
     </style>
 
@@ -36,7 +46,6 @@
 
     <script>
         window.onload = function () {
-            const targetWindow = window.opener;
             $('#post-create').submit(function (e) {
                 e.preventDefault();
                 $.ajax({
@@ -45,21 +54,22 @@
                     data: $('#post-create').serialize(),
                     error: function (err) {
                         // Send error message to the opening window                 
-                        targetWindow.postMessage(err.responseJSON, '*'); 
+                        window.opener.postMessage(err.responseJSON, '*');
                         window.close();
                     },
-                    success: function(data) {
+                    success: function (data) {
                         // Send the instance to the opening window
-                        targetWindow.postMessage(data, '*'); 
+                        window.opener.postMessage(data, '*');
+                        window.opener.postMessage({ message: 'completed' }, '*')
                         window.close();
-                    }             
+                    }
                 });
             });
             // preserve all query parameters by POST
             var postForm = $('#post-create');
             var params = queryStringToObj(window.location.search);
 
-            Object.keys(params).forEach(function(paramKey) {
+            Object.keys(params).forEach(function (paramKey) {
                 postForm.append('<input name=' + paramKey + ' type="hidden" value=' + params[paramKey] + '>');
             });
             postForm.submit();
@@ -86,4 +96,5 @@
         <form id="post-create" action="/v1/application" method="post"></form>
     </div>
 </body>
+
 </html>
