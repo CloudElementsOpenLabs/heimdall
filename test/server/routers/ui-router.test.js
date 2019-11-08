@@ -11,21 +11,19 @@ const authHeader = require('../../../src/authHeader')
         userSecret: process.env.TEST_USER_SECRET
     })
 
-jest.setTimeout(100 * 1000)
-const instanceRegex = /"id": ([0-9]*), (.*?), "token": "(.*?)"/
+jest.setTimeout(60 * 1000)
 const urlHeimdall = 'https://heimdall-staging.cloud-elements.com/v1/api'
 const urlCloudElements = 'https://staging.cloud-elements.com/elements/api-v2'
-const chromeHeadless = false
 
 const initiateTest = async heimdallToken => {
     const browser = await puppeteer.launch({
         executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
-        headless: chromeHeadless
+        headless: false
     })
 
     const firstPage = await browser.newPage()
     await firstPage.goto(`file:${path.join(__dirname, 'index.html')}?token=${heimdallToken}`)
-    const payloadChanged = firstPage.waitForFunction(() => testResult, { polling: 5 * 1000, timeout: 0 })
+    const payloadChanged = firstPage.waitForFunction(() => testResult && testResult.id, { polling: 5 * 1000, timeout: 0 })
     await firstPage.waitForSelector('#connect')
 
     const newPage = new Promise(res => browser.on('targetcreated', res))
