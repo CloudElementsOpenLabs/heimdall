@@ -13,8 +13,8 @@ Each Heimdall environment depends on a respective Cloud Elements environment:
 |    |  Heimdall Base URL | CE Base URL | CE Login |
 | :- |:- |:- |:- |
 |US Staging:    | heimdall-staging.cloud-elements.com | staging.cloud-elements.com | my-staging.cloudelements.io |
-|US Production: | heimdall.cloud-elements.com         | api.cloud-elements.com |  my.cloudelements.io |
-|EU Production: | heimdall.cloud-elements.co.uk       | api.cloud-elements.co.uk | my.cloudelements.co.uk |
+|US Production: | Please ask a CE representative | api.cloud-elements.com |  my.cloudelements.io |
+|EU Production: | Please ask a CE representative | api.cloud-elements.co.uk | my.cloudelements.co.uk |
 
 ### Hosting 
 
