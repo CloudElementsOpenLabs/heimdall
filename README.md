@@ -35,12 +35,12 @@ The Heimdall application will be tied to your Cloud Elements organization secret
 ```bash
 curl --request POST \
   --url 'https://heimdall.cloud-elements.com/v1/api/applications' \
-  --header 'authorization: User N39frffS9rQEn6ir+sdNRg0SB3q3o875f3289u5HblwM=, Organization 81a64e5bbf4cf635523o783qhg' \
+  --header 'authorization: User ******, Organization ******' \
   --header 'content-type: application/json' \
   --data '{
     "notificationEmail": youremail@company.com,
     "cssUrl": "https://app.com/public/css/style.css",
-  }
+  }'
 ```
 ### Configuration Fields
 1. notificationEmail: When an instance is created an email will be sent to this email address notifying you that an instance was created
@@ -56,7 +56,7 @@ You can enable provisioning of an element for your application with the followin
 ```bash
 curl --request POST \
   --url https://heimdall.cloud-elements.com/v1/api/elements \
-  --header 'authorization: User N39frffS9rQEn6ir+sdNRg0SB3q3o875f3289u5HblwM=, Organization 81a64e5bbf4cf635523o783qhg' \
+  --header 'authorization: User ******, Organization ******' \
   --header 'content-type: application/json' \
   --data '{
 	"key":"box",
@@ -64,13 +64,13 @@ curl --request POST \
     "properties": [
         {
         "dataType": "text",
-        "defaultValue": "tfyvgvmvs5wzr8xx1dzm2pmsh5kqtx00",
+        "defaultValue": "******",
         "display": false,
         "key": "oauth.api.key"
         },
         {
         "dataType": "text",
-        "defaultValue": "YOO55vewjwMZTn7Q7Z3TAM0hbm8REHPP",
+        "defaultValue": "******",
         "display": false,
         "key": "oauth.api.secret"
         },
@@ -122,7 +122,7 @@ This call will automatically tie this element to your application based on your 
 
             # A default value. If this property is on a form it will display this value in the form input. 
             # Otherwise this property will always be the configured value. 
-            "defaultValue": "Ob1sF24qy48f7eayf7NnE1OC", 
+            "defaultValue": "******", 
             
             # Used if there is a subdomain
             # Sends both "key:value" and "siteAddress:value" to GET elements/{elementKey}/oauth/url and will return with the value prepended on the url. 
@@ -142,13 +142,13 @@ Hubspot
     "properties": [
         {
             "dataType": "text",
-            "defaultValue": "c75b327c-f054-4945-8a7c-f7f56ed3d980",
+            "defaultValue": "******",
             "display": false,
             "key": "oauth.api.key"
         },
         {
             "dataType": "text",
-            "defaultValue": "30216c94-3f9d-4947-868e-61652e874100",
+            "defaultValue": "*******",
             "display": false,
             "key": "oauth.api.secret"
         },
@@ -180,13 +180,13 @@ Desk.com
             "dataType": "text",
             "display": false,
             "key": "oauth.api.key",
-            "defaultValue": "Ob1sFoIr9efpZ7NnE1OC"
+            "defaultValue": "******"
         },
         {
             "dataType": "text",
             "display": false,
             "key": "oauth.api.secret",
-            "defaultValue": "KcDx0FpUijCLi5UcwBwSU2GQhJs7BrBaPW1vV6Bk"
+            "defaultValue": "******"
         },
         {
             "dataType": "text",
@@ -275,7 +275,7 @@ You will make a server side API call to get a URL to redirect the user to. This 
 ```bash
 curl --request GET \
   --url 'https://heimdall.cloud-elements.com/v1/api/url?elementKey=box&uniqueName=my%20new%20box' \
-  --header 'authorization: User 267nUgE6l5PEFTJSRHDggukC/8x8ggCM5XDaIzBZ0zI=, Organization clx0ITgF4VgEDh96EU5pkgo/EkyuIUqxjb4dDtjt02Q=' \
+  --header 'authorization: User ******, Organization ******' \
   --header 'content-type: application/json' \
 
 RESPONSE
@@ -306,7 +306,7 @@ If you need to update an existing instance for the purpose of re-authentication,
 ```bash
 curl --request GET \
   --url 'https://heimdall.cloud-elements.com/v1/api/url?elementKey=box&uniqueName=my%20new%20box&instanceId=12345' \
-  --header 'authorization: User 267nUgE6l5PEFTJSRHDggukC/8x8ggCM5XDaIzBZ0zI=, Organization clx0ITgF4VgEDh96EU5pkgo/EkyuIUqxjb4dDtjt02Q=' \
+  --header 'authorization: User ******, Organization *******' \
   --header 'content-type: application/json' \
 
 RESPONSE
