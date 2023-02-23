@@ -30,7 +30,7 @@
     "ramda": "^0.25.0",
     "request": "^2.88.0",
     "request-promise": "^4.2.4",
-    "sequelize": "^5.19.2",
+    "sequelize": "^6.28.2",
     "winston": "^3.2.1"
   },
   "devDependencies": {
